@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.TemFecFinal)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Edit", "Edit", new { id=item.TemId }) |
                     @Html.ActionLink("Details", "Details", new { id=item.TemId }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Delete", "Delete", new { id=item.TemId })
             </td>
         </tr>
 }

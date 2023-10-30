@@ -39,7 +39,7 @@ namespace LIDOM_MVC.Controllers
 
         // GET: TemporadasController/Details/5
         [HttpGet]
-        [Route("api/Details/T")]
+        [Route("api/details/id")]
         public async Task<ActionResult> Details(int id)
         {
 
@@ -53,12 +53,11 @@ namespace LIDOM_MVC.Controllers
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/temporadas/" + id.ToString());
-                Console.WriteLine(Res.ToString());
 
                 if (Res.IsSuccessStatusCode)
                 {
                     var EquiResponse = Res.Content.ReadAsStringAsync().Result;
-                    TempInfo = JsonConvert.DeserializeObject<Temporada>(EquiResponse);
+                    TempInfo = JsonConvert.DeserializeObject<Temporada>(EquiResponse)!;
                 }
 
                 return View(TempInfo);
@@ -99,45 +98,122 @@ namespace LIDOM_MVC.Controllers
         }
 
         // GET: TemporadasController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async  Task<ActionResult> Edit(int id)
         {
-            return View();
+
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+
+            Temporada TempInfo = new Temporada();
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/temporadas/" + id.ToString());
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EquiResponse = Res.Content.ReadAsStringAsync().Result;
+                    TempInfo = JsonConvert.DeserializeObject<Temporada>(EquiResponse)!;
+                }
+
+                return View(TempInfo);
+            }
         }
 
         // POST: TemporadasController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, [FromForm] Temporada temporada)
         {
-            try
+            if (temporada != null)
             {
-                return RedirectToAction(nameof(Index));
+                string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+                try
+                {
+                    using (var client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri(baseApiUrl);
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        // Envía una solicitud PUT a la API con los datos actualizados
+                        HttpResponseMessage response = await client.PutAsJsonAsync($"{baseApiUrl}/temporadas/" + id.ToString(), temporada);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // La temporada se actualizó exitosamente en la API
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(String.Empty, "Error al actualizar la temporada. Código de estado: " + response.StatusCode);
+                        }
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
+                }
+                catch (JsonException ex)
+                {
+                    ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            // En caso de errores, regresar a la vista de edición con los errores en el modelo
+            return View(temporada);
         }
 
         // GET: TemporadasController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+
+            Temporada TempInfo = new Temporada();
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/temporadas/" + id.ToString());
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EquiResponse = Res.Content.ReadAsStringAsync().Result;
+                    TempInfo = JsonConvert.DeserializeObject<Temporada>(EquiResponse)!;
+                }
+
+                return View(TempInfo);
+            }
         }
 
-        // POST: TemporadasController/Delete/5
+        //POST: TemporadasController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public  ActionResult Delete(string id)
         {
-            try
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+            using (var client = new HttpClient())
             {
-                return RedirectToAction(nameof(Index));
+                client.BaseAddress = new Uri(baseApiUrl);
+                var deleteTask = client.DeleteAsync($"{baseApiUrl}/temporadas/" + id.ToString());
+                deleteTask.Wait();
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

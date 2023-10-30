@@ -1,0 +1,43 @@
+﻿@model LIDOM_MVC.Models.Temporada
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Temporada</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TemNombre" class="control-label"></label>
+                <input asp-for="TemNombre" class="form-control" />
+                <span asp-validation-for="TemNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TemFecInicio" class="control-label"></label>
+                <input asp-for="TemFecInicio" class="form-control" />
+                <span asp-validation-for="TemFecInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TemFecFinal" class="control-label"></label>
+                <input asp-for="TemFecFinal" class="form-control" />
+                <span asp-validation-for="TemFecFinal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
