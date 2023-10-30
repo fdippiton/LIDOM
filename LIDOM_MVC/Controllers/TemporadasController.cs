@@ -1,21 +1,70 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LIDOM_MVC.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using NuGet.Configuration;
+using System.Globalization;
+using System.Net.Http.Headers;
 
 namespace LIDOM_MVC.Controllers
 {
     public class TemporadasController : Controller
     {
+        private readonly IConfiguration _configuration;
+        private readonly HttpClient httpClient;
+
+        public TemporadasController(IConfiguration configuration)
+        {
+            httpClient = new HttpClient();
+            _configuration = configuration;
+        }
+
         // GET: TemporadasController
         public ActionResult Index()
         {
-            return View();
+
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            List<Temporada> temporadas = new List<Temporada>();
+            string jsonTemporadasResponse = httpClient.GetStringAsync($"{baseApiUrl}/temporadas").Result;
+            temporadas = string.IsNullOrEmpty(jsonTemporadasResponse) ? temporadas : JsonConvert.DeserializeObject<List<Temporada>>(jsonTemporadasResponse)!;
+
+            return View(temporadas);
         }
 
+        //// GET: TemporadasController/Details/5
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
+
         // GET: TemporadasController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        [Route("api/Details/T")]
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+
+            Temporada TempInfo = new Temporada();
+            using (var client = new HttpClient())
+            {
+   
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/temporadas/" + id.ToString());
+                Console.WriteLine(Res.ToString());
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EquiResponse = Res.Content.ReadAsStringAsync().Result;
+                    TempInfo = JsonConvert.DeserializeObject<Temporada>(EquiResponse);
+                }
+
+                return View(TempInfo);
+            }
         }
+
 
         // GET: TemporadasController/Create
         public ActionResult Create()
@@ -26,16 +75,27 @@ namespace LIDOM_MVC.Controllers
         // POST: TemporadasController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([FromForm] Temporada temporada)
         {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
             try
             {
+                var postTask = httpClient.PostAsJsonAsync<Temporada>($"{baseApiUrl}/temporadas", temporada);
+                postTask.Wait();
+                var result = postTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ModelState.AddModelError(String.Empty, "error");
             }
+            return View(temporada);
         }
 
         // GET: TemporadasController/Edit/5
