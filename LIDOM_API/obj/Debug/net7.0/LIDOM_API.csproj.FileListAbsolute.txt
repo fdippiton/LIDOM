@@ -252,3 +252,9 @@ C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\obj\Debug\net7.0\refint\LIDOM_API.
 C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\obj\Debug\net7.0\LIDOM_API.pdb
 C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\obj\Debug\net7.0\LIDOM_API.genruntimeconfig.cache
 C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\obj\Debug\net7.0\ref\LIDOM_API.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_API\bin\Debug\net7.0\Microsoft.Extensions.Options.dll

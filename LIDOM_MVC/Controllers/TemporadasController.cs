@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using NuGet.Configuration;
 using System.Globalization;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace LIDOM_MVC.Controllers
 {
@@ -126,48 +127,46 @@ namespace LIDOM_MVC.Controllers
         // POST: TemporadasController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(string id, [FromForm] Temporada temporada)
+        public async Task<IActionResult> Edit(int id, [FromForm] Temporada temporada)
         {
-            if (temporada != null)
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+            try
             {
-                string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
-
-                try
+                using (var client = new HttpClient())
                 {
-                    using (var client = new HttpClient())
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    // Serializa el objeto temporada en formato JSON
+                    var content = new StringContent(JsonConvert.SerializeObject(temporada), Encoding.UTF8, "application/json");
+
+                    // Envía una solicitud PUT a la API con los datos actualizados
+                    HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/temporadas/" + id.ToString(), content);
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        client.BaseAddress = new Uri(baseApiUrl);
-                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                        // Envía una solicitud PUT a la API con los datos actualizados
-                        HttpResponseMessage response = await client.PutAsJsonAsync($"{baseApiUrl}/temporadas/" + id.ToString(), temporada);
-
-                        if (response.IsSuccessStatusCode)
-                        {
-                            // La temporada se actualizó exitosamente en la API
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(String.Empty, "Error al actualizar la temporada. Código de estado: " + response.StatusCode);
-                        }
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(String.Empty, "Error al actualizar la temporada. Código de estado: " + response.StatusCode);
                     }
                 }
-                catch (HttpRequestException ex)
-                {
-                    ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
-                }
-                catch (JsonException ex)
-                {
-                    ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
-                }
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
             }
 
-            // En caso de errores, regresar a la vista de edición con los errores en el modelo
             return View(temporada);
         }
 
