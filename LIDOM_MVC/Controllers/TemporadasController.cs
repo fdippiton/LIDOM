@@ -100,7 +100,7 @@ namespace LIDOM_MVC.Controllers
 
         // GET: TemporadasController/Edit/5
         [HttpGet]
-        public async  Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
 
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;

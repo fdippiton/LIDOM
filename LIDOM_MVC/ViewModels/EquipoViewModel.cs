@@ -1,4 +1,6 @@
-﻿namespace LIDOM_MVC.ViewModels
+﻿using LIDOM_MVC.Models;
+
+namespace LIDOM_MVC.ViewModels
 {
     public class EquipoViewModel
     {

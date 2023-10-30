@@ -1,4 +1,4 @@
-﻿@model LIDOM_MVC.ViewModels.EquipoViewModel
+﻿@model LIDOM_MVC.Models.Equipo
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,13 +7,13 @@
 
 <h1>Edit</h1>
 
-<h4>EquipoViewModel</h4>
+<h4>Equipo</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group d-none">
                 <label asp-for="EqId" class="control-label"></label>
                 <input asp-for="EqId" class="form-control" />
                 <span asp-validation-for="EqId" class="text-danger"></span>
@@ -34,9 +34,9 @@
                 <span asp-validation-for="EqCiudad" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EqEstadioNombre" class="control-label"></label>
-                <input asp-for="EqEstadioNombre" class="form-control" />
-                <span asp-validation-for="EqEstadioNombre" class="text-danger"></span>
+                <label asp-for="EqEstadio" class="control-label"></label>
+                <input asp-for="EqEstadio" class="form-control" />
+                <span asp-validation-for="EqEstadio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EqEstatus" class="control-label"></label>

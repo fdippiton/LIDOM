@@ -122,31 +122,36 @@ namespace LIDOM_MVC.Controllers
 
         // GET: EquiposController/Edit/5
         [HttpGet]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
 
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+
+
             Equipo equipo = new Equipo();
             Estadio estadio = new Estadio();
-            EquipoViewModel customEquipo = new EquipoViewModel();
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage ResEquipo = await client.GetAsync($"{baseApiUrl}/equipos/" + id.ToString());
+                //HttpResponseMessage ResEstadio = await client.GetAsync($"{baseApiUrl}/equipos/" + id.ToString());
 
 
-            string jsonEquipoResponse = httpClient.GetStringAsync($"{baseApiUrl}/equipos/" + id.ToString()).Result;
-            equipo = string.IsNullOrEmpty(jsonEquipoResponse) ? equipo : JsonConvert.DeserializeObject<Equipo>(jsonEquipoResponse)!;
+                if (ResEquipo.IsSuccessStatusCode)
+                {
+                    var EquiResponse = ResEquipo.Content.ReadAsStringAsync().Result;
+                    equipo = JsonConvert.DeserializeObject<Equipo>(EquiResponse)!;
 
+                    //var EstadioResponse = ResEstadio.Content.ReadAsStringAsync().Result;
+                    //estadio = JsonConvert.DeserializeObject<Estadio>(EstadioResponse)!;
 
-            string jsonEstadiosResponse = httpClient.GetStringAsync($"{baseApiUrl}/estadios/" + id.ToString()).Result;
-            estadio = string.IsNullOrEmpty(jsonEstadiosResponse) ? estadio : JsonConvert.DeserializeObject<Estadio>(jsonEstadiosResponse)!;
+                }
 
-            customEquipo.EqId = equipo.EqId;
-            customEquipo.EqNombre = equipo.EqNombre;
-            customEquipo.EqDescripcion = equipo.EqDescripcion;
-            customEquipo.EqCiudad = equipo.EqCiudad;
-            customEquipo.EqEstadioNombre = estadio.EstNombre;
-            customEquipo.EqEstatus = equipo.EqEstatus;
-       
-            return View(customEquipo);
-
+                return View(equipo);
+            }
         }
 
         // POST: EquiposController/Edit/5
