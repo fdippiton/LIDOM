@@ -1,0 +1,59 @@
+﻿@model LIDOM_MVC.ViewModels.EquipoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>EquipoViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EqId" class="control-label"></label>
+                <input asp-for="EqId" class="form-control" />
+                <span asp-validation-for="EqId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EqNombre" class="control-label"></label>
+                <input asp-for="EqNombre" class="form-control" />
+                <span asp-validation-for="EqNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EqDescripcion" class="control-label"></label>
+                <input asp-for="EqDescripcion" class="form-control" />
+                <span asp-validation-for="EqDescripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EqCiudad" class="control-label"></label>
+                <input asp-for="EqCiudad" class="form-control" />
+                <span asp-validation-for="EqCiudad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EqEstadioNombre" class="control-label"></label>
+                <input asp-for="EqEstadioNombre" class="form-control" />
+                <span asp-validation-for="EqEstadioNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EqEstatus" class="control-label"></label>
+                <input asp-for="EqEstatus" class="form-control" />
+                <span asp-validation-for="EqEstatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
