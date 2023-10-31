@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NuGet.Configuration;
+using NuGet.Protocol;
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Text;
@@ -81,6 +82,7 @@ namespace LIDOM_MVC.Controllers
 
             try
             {
+                Console.WriteLine(temporada.ToJson());
                 var postTask = httpClient.PostAsJsonAsync<Temporada>($"{baseApiUrl}/temporadas", temporada);
                 postTask.Wait();
                 var result = postTask.Result;

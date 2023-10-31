@@ -12,6 +12,7 @@ namespace LIDOM_MVC.ViewModels
 
         public string EqCiudad { get; set; } = null!;
 
+
         public string EqEstadioNombre { get; set; }
 
         public string EqEstatus { get; set; } = null!;
