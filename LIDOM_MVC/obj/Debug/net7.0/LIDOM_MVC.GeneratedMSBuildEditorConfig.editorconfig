@@ -9,69 +9,73 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = LIDOM_MVC
 build_property.RootNamespace = LIDOM_MVC
-build_property.ProjectDir = C:\Users\Francine\Desktop\LIDOM_API\LIDOM_MVC\
+build_property.ProjectDir = F:\Programacion\MVC\LIDOM\LIDOM_MVC\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Francine\Desktop\LIDOM_API\LIDOM_MVC
+build_property.MSBuildProjectDirectory = F:\Programacion\MVC\LIDOM\LIDOM_MVC
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Equipos/Edit.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Equipos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXF1aXBvc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Equipos/Index.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Equipos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXF1aXBvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Estadios/Index.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Estadios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Home/Index.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Home/Privacy.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Shared/Error.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Temporadas/Create.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Temporadas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcG9yYWRhc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Temporadas/Delete.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Temporadas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcG9yYWRhc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Temporadas/Details.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Temporadas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcG9yYWRhc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Temporadas/Edit.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Temporadas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcG9yYWRhc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Temporadas/Index.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Temporadas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcG9yYWRhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/_ViewImports.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/_ViewStart.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Francine/Desktop/LIDOM_API/LIDOM_MVC/Views/Shared/_Layout.cshtml]
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-9i4wtexsc9
