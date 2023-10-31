@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using LIDOM_MVC.Models;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace LIDOM_MVC.Controllers
 {
@@ -86,24 +87,74 @@ namespace LIDOM_MVC.Controllers
         }
 
         // GET: EstadiosController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async Task <ActionResult> Edit(int id)
         {
-            return View();
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+
+            Estadio EstaInfo = new Estadio();
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/estadios/" + id.ToString());
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EstaResponse = Res.Content.ReadAsStringAsync().Result;
+                    EstaInfo = JsonConvert.DeserializeObject<Estadio>(EstaResponse)!;
+                }
+
+                return View(EstaInfo);
+            }
         }
 
         // POST: EstadiosController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [FromForm] Estadio estadio)
         {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    // Serializa el objeto temporada en formato JSON
+                    var content = new StringContent(JsonConvert.SerializeObject(estadio), Encoding.UTF8, "application/json");
+
+                    // Envía una solicitud PUT a la API con los datos actualizados
+                    HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/estadios/" + id.ToString(), content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(String.Empty, "Error al actualizar el estadio. Código de estado: " + response.StatusCode);
+                    }
+                }
             }
-            catch
+            catch (HttpRequestException ex)
             {
-                return View();
+                ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
             }
+            catch (JsonException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
+            }
+
+            return View(estadio);
         }
 
         // GET: EstadiosController/Delete/5

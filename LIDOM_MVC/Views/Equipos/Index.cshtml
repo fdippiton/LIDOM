@@ -66,12 +66,12 @@
                     @Html.DisplayFor(modelItem => item.EqEstatus)
                 </td> 
                 }
-            <td>
+                <td class="d-flex flex-nowrap">
                     @if (User.IsInRole("Admin"))
                     {
-                        <span> @Html.ActionLink("Edit", "Edit", new { id=item.EqId })</span>
-                        <span>   @Html.ActionLink("Details", "Details", new { id=item.EqId })</span>
-                        <span>   @Html.ActionLink("Delete", "Delete", new { id=item.EqId })</span>
+                        <span> @Html.ActionLink("Edit", "Edit", new { id=item.EqId }, new { @class = "btn btn-outline-secondary me-1" })</span>
+                        <span>   @Html.ActionLink("Details", "Details", new { id=item.EqId }, new { @class = "btn btn-outline-primary me-1" })</span>
+                        <span>   @Html.ActionLink("Delete", "Delete", new { id=item.EqId }, new { @class = "btn btn-outline-danger me-1" })</span>
                  
                         
                     }

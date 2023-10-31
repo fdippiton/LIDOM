@@ -1,0 +1,44 @@
+﻿@model LIDOM_MVC.Models.Estadio
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+
+<h4>Estadio</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group d-none">
+                <label asp-for="EstId" class="control-label"></label>
+                <input asp-for="EstId" class="form-control" />
+                <span asp-validation-for="EstId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="EstNombre" class="control-label"></label>
+                <input asp-for="EstNombre" class="form-control" />
+                <span asp-validation-for="EstNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="EstUbicacion" class="control-label"></label>
+                <input asp-for="EstUbicacion" class="form-control" />
+                <span asp-validation-for="EstUbicacion" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

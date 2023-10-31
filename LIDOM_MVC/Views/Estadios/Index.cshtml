@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Estadio</h1>
+<h1>Estadios</h1>
 @if (User.IsInRole("Admin"))
 {
 <p>
@@ -39,10 +39,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EstUbicacion)
             </td>
-            <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.EstId }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.EstId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.EstId })
+                <td class="d-flex flex-nowrap">
+                    @Html.ActionLink("Editar", "Edit", new { id=item.EstId }, new { @class = "btn btn-outline-secondary me-1" })
+                    @Html.ActionLink("Detalles", "Details", new { id=item.EstId }, new { @class = "btn btn-outline-primary me-1" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id=item.EstId }, new { @class = "btn btn-outline-danger me-1" })
             </td>
         </tr>
 }

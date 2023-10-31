@@ -48,10 +48,10 @@
             </td>
                 @if (User.IsInRole("Admin"))
                 {
-            <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.TemId }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.TemId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.TemId })
+                    <td class="d-flex flex-nowrap">
+                        @Html.ActionLink("Edit", "Edit", new { id=item.TemId }, new { @class = "btn btn-outline-secondary me-1" }) 
+                        @Html.ActionLink("Details", "Details", new { id=item.TemId }, new { @class = "btn btn-outline-primary me-1" }) 
+                        @Html.ActionLink("Delete", "Delete", new { id=item.TemId }, new { @class = "btn btn-outline-danger me-1" })
             </td>
                     
                 }
