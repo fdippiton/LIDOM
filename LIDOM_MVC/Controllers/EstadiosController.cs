@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using LIDOM_MVC.Models;
+using System.Net.Http.Headers;
 
 namespace LIDOM_MVC.Controllers
 {
@@ -29,9 +30,27 @@ namespace LIDOM_MVC.Controllers
         }
 
         // GET: EstadiosController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public async Task <ActionResult> Details(int id)
         {
-            return View();
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+            Estadio EstaInfo = new Estadio();
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/estadios/" + id.ToString());
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EstResponse = Res.Content.ReadAsStringAsync().Result;
+                    EstaInfo = JsonConvert.DeserializeObject<Estadio>(EstResponse)!;
+                }
+
+                return View(EstaInfo);
+            }
         }
 
         // GET: EstadiosController/Create
@@ -43,16 +62,27 @@ namespace LIDOM_MVC.Controllers
         // POST: EstadiosController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([FromForm] Estadio estadio)
         {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
             try
             {
+                var postTask = httpClient.PostAsJsonAsync<Estadio>($"{baseApiUrl}/estadios", estadio);
+                postTask.Wait();
+                var result = postTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ModelState.AddModelError(String.Empty, "error");
             }
+            return View(estadio);
         }
 
         // GET: EstadiosController/Edit/5
@@ -77,24 +107,49 @@ namespace LIDOM_MVC.Controllers
         }
 
         // GET: EstadiosController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public async Task <ActionResult> Delete(int id)
         {
-            return View();
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+
+            Estadio EstInfo = new Estadio();
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/estadios/" + id.ToString());
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EstaResponse = Res.Content.ReadAsStringAsync().Result;
+                    EstInfo = JsonConvert.DeserializeObject<Estadio>(EstaResponse)!;
+                }
+
+                return View(EstInfo);
+            }
         }
 
         // POST: EstadiosController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string id)
         {
-            try
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+            using (var client = new HttpClient())
             {
-                return RedirectToAction(nameof(Index));
+                client.BaseAddress = new Uri(baseApiUrl);
+                var deleteTask = client.DeleteAsync($"{baseApiUrl}/estadios/" + id.ToString());
+                deleteTask.Wait();
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

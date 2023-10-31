@@ -5,10 +5,13 @@
 }
 
 <h1>Index</h1>
-
+@if (User.IsInRole("Admin"))
+{
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+    
+}
 <table class="table">
     <thead>
         <tr>
@@ -37,9 +40,9 @@
                 @Html.DisplayFor(modelItem => item.EstUbicacion)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edit", "Edit", new { id=item.EstId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.EstId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.EstId })
             </td>
         </tr>
 }

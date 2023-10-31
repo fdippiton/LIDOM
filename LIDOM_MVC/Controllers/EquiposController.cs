@@ -10,6 +10,7 @@ using NuGet.Protocol;
 using System.Text;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Security.Cryptography.X509Certificates;
+using System.Globalization;
 
 namespace LIDOM_MVC.Controllers
 {
@@ -17,7 +18,7 @@ namespace LIDOM_MVC.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly HttpClient httpClient;
-        
+
 
         public EquiposController(IConfiguration configuration)
         {
@@ -26,26 +27,6 @@ namespace LIDOM_MVC.Controllers
         }
 
         //GET: EquiposController
-        //public async Task<ActionResult> Index()
-        //{
-        //    string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
-        //    List<Equipo> equipo = new List<Equipo>();
-        //    using (var client = new HttpClient())
-        //    {
-        //        client.BaseAddress = new Uri(baseApiUrl);
-        //        client.DefaultRequestHeaders.Clear();
-        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //        HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/equipos");
-        //        if (Res.IsSuccessStatusCode)
-        //        {
-        //            var EquiResponse = Res.Content.ReadAsStringAsync().Result;
-        //            equipo = JsonConvert.DeserializeObject<List<Equipo>>(EquiResponse)!;
-        //        }
-
-        //        return View(equipo);
-        //    }
-        //}
-
         public ActionResult Index()
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
@@ -59,18 +40,18 @@ namespace LIDOM_MVC.Controllers
 
             string jsonEstadiosResponse = httpClient.GetStringAsync($"{baseApiUrl}/estadios").Result;
             estadios = string.IsNullOrEmpty(jsonEstadiosResponse) ? estadios : JsonConvert.DeserializeObject<List<Estadio>>(jsonEstadiosResponse)!;
-            
+
 
             foreach (Equipo equipo in equipos)
             {
                 EquipoViewModel customEquipo = new EquipoViewModel()
                 {
-                   EqId = equipo.EqId,
-                   EqNombre = equipo.EqNombre,
-                   EqDescripcion = equipo.EqDescripcion,
-                   EqCiudad = equipo.EqCiudad,
-                   EqEstadioNombre = estadios.Where(e => equipo.EqEstadio == e.EstId ).Select(e => e.EstNombre).FirstOrDefault()!,
-                   EqEstatus = equipo.EqEstatus,
+                    EqId = equipo.EqId,
+                    EqNombre = equipo.EqNombre,
+                    EqDescripcion = equipo.EqDescripcion,
+                    EqCiudad = equipo.EqCiudad,
+                    EqEstadioNombre = estadios.Where(e => equipo.EqEstadio == e.EstId).Select(e => e.EstNombre).FirstOrDefault()!,
+                    EqEstatus = equipo.EqEstatus,
                 };
                 customEquipos.Add(customEquipo);
             };
@@ -80,7 +61,6 @@ namespace LIDOM_MVC.Controllers
 
         // GET: EquiposController/Details/5
         [HttpGet]
-        [Route("api/details/id")]
         public async Task<ActionResult> Details(int id)
         {
 
@@ -106,7 +86,7 @@ namespace LIDOM_MVC.Controllers
         }
 
         // GET: EquiposController/Create
-        public async Task <ActionResult> Create()
+        public async Task<ActionResult> Create()
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
             List<Estadio> estadios = new List<Estadio>();
@@ -124,7 +104,6 @@ namespace LIDOM_MVC.Controllers
 
                     ViewBag.DropDownData = new SelectList(estadios, "EstId", "EstNombre");
                 }
-
                 return View();
             }
         }
@@ -132,7 +111,7 @@ namespace LIDOM_MVC.Controllers
         // POST: EquiposController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  ActionResult Create([FromForm] Equipo equipo)
+        public ActionResult Create([FromForm] Equipo equipo)
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
             equipo.EqEstatus = "A".ToString();
@@ -146,16 +125,16 @@ namespace LIDOM_MVC.Controllers
                 if (result.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
-                } else
+                }
+                else
                 {
                     Console.WriteLine("Response Content: " + result.Content.ReadAsStringAsync().Result);
                 }
-                
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-               
+
                 ModelState.AddModelError(string.Empty, "Ocurrió un error al crear el equipo.");
             }
             return View(equipo);
@@ -167,19 +146,25 @@ namespace LIDOM_MVC.Controllers
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
             Equipo equipo = new Equipo();
+            List<Estadio> estadios = new List<Estadio>();
 
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage ResEquipo = await client.GetAsync($"{baseApiUrl}/equipos/" + id.ToString());
+                HttpResponseMessage ResEstadio = await client.GetAsync($"{baseApiUrl}/estadios/");
 
-                if (ResEquipo.IsSuccessStatusCode)
+                if (ResEquipo.IsSuccessStatusCode && ResEstadio.IsSuccessStatusCode)
                 {
                     var EquiResponse = ResEquipo.Content.ReadAsStringAsync().Result;
                     equipo = JsonConvert.DeserializeObject<Equipo>(EquiResponse)!;
+
+                    var EstadioResponse = ResEstadio.Content.ReadAsStringAsync().Result;
+                    estadios = JsonConvert.DeserializeObject<List<Estadio>>(EstadioResponse)!;
+
+                    ViewBag.DropDownData = new SelectList(estadios, "EstId", "EstNombre");
                 }
-               
                 return View(equipo);
             }
         }
@@ -187,37 +172,90 @@ namespace LIDOM_MVC.Controllers
         // POST: EquiposController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task <ActionResult> Edit(int id, [FromForm] Equipo equipo)
         {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    // Serializa el objeto temporada en formato JSON
+                    var content = new StringContent(JsonConvert.SerializeObject(equipo), Encoding.UTF8, "application/json");
+
+                    // Envía una solicitud PUT a la API con los datos actualizados
+                    HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/equipos/" + id.ToString(), content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(String.Empty, "Error al actualizar la temporada. Código de estado: " + response.StatusCode);
+                    }
+                }
             }
-            catch
+            catch (HttpRequestException ex)
             {
-                return View();
+                ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
             }
+            catch (JsonException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
+            }
+            return View(equipo);
         }
 
         // GET: EquiposController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+            Equipo TempInfo = new Equipo();
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/equipos/" + id.ToString());
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var EquiResponse = Res.Content.ReadAsStringAsync().Result;
+                    TempInfo = JsonConvert.DeserializeObject<Equipo>(EquiResponse)!;
+                }
+                return View(TempInfo);
+            }
         }
 
         // POST: EquiposController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string id)
         {
-            try
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+            using (var client = new HttpClient())
             {
-                return RedirectToAction(nameof(Index));
+                client.BaseAddress = new Uri(baseApiUrl);
+                var deleteTask = client.DeleteAsync($"{baseApiUrl}/equipos/" + id.ToString());
+                deleteTask.Wait();
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
+
     }
 }

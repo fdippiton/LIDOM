@@ -7,7 +7,11 @@
 <h1>Index</h1>
 
 <p>
+    @if (User.IsInRole("Admin"))
+    {
     <a asp-action="Create">Create New</a>
+        
+    }
 </p>
 <table class="table">
     <thead>
@@ -42,11 +46,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TemFecFinal)
             </td>
+                @if (User.IsInRole("Admin"))
+                {
             <td>
                     @Html.ActionLink("Edit", "Edit", new { id=item.TemId }) |
                     @Html.ActionLink("Details", "Details", new { id=item.TemId }) |
                     @Html.ActionLink("Delete", "Delete", new { id=item.TemId })
             </td>
+                    
+                }
+                    
         </tr>
 }
     </tbody>

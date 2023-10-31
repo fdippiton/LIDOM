@@ -1,0 +1,55 @@
+﻿@model LIDOM_MVC.Models.Equipo
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Equipo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EqId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EqId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EqNombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EqNombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EqDescripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EqDescripcion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EqCiudad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EqCiudad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EqEstadio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EqEstadio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EqEstatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EqEstatus)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
