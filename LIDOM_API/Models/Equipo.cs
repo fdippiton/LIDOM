@@ -13,7 +13,7 @@ public partial class Equipo
 
     public string EqCiudad { get; set; } = null!;
 
-    public int EqEstadio { get; set; }
+    public int? EqEstadio { get; set; }
 
     public string EqEstatus { get; set; } = null!;
 
@@ -21,7 +21,7 @@ public partial class Equipo
 
     public virtual ICollection<CalendarioJuego> CalendarioJuegoCalEquipoVisitanteNavigations { get; set; } = new List<CalendarioJuego>();
 
-    public virtual Estadio EqEstadioNavigation { get; set; } = null!;
+    public virtual Estadio? EqEstadioNavigation { get; set; }
 
     public virtual ICollection<Jugadore> Jugadores { get; set; } = new List<Jugadore>();
 

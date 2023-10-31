@@ -1,6 +1,6 @@
-﻿namespace LIDOM_MVC.Models
+﻿namespace LIDOM_MVC.ViewModels
 {
-    public class Equipo
+    public class EqEstadioNombreViewModel
     {
         public int EqId { get; set; }
 
@@ -10,7 +10,8 @@
 
         public string EqCiudad { get; set; } = null!;
 
-        public int? EqEstadio { get; set; }
+
+        public int EqEstadio { get; set; }
 
         public string EqEstatus { get; set; } = null!;
     }

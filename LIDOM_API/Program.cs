@@ -11,8 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-string connectionString = builder.Configuration.GetConnectionString("DBCnxLIDOM");
-builder.Services.AddDbContext<LidomContext>(db => db.UseSqlServer(connectionString));
+//string connectionString = builder.Configuration.GetConnectionString("DBCnxLIDOM")!;
+//builder.Services.AddDbContext<LidomContext>(db => db.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<LidomContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DBCnxLIDOM")));
 
 var app = builder.Build();
 

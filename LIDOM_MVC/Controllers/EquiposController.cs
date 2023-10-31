@@ -8,6 +8,8 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NuGet.Protocol;
 using System.Text;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Security.Cryptography.X509Certificates;
 
 namespace LIDOM_MVC.Controllers
 {
@@ -15,7 +17,7 @@ namespace LIDOM_MVC.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly HttpClient httpClient;
-
+        
 
         public EquiposController(IConfiguration configuration)
         {
@@ -57,7 +59,7 @@ namespace LIDOM_MVC.Controllers
 
             string jsonEstadiosResponse = httpClient.GetStringAsync($"{baseApiUrl}/estadios").Result;
             estadios = string.IsNullOrEmpty(jsonEstadiosResponse) ? estadios : JsonConvert.DeserializeObject<List<Estadio>>(jsonEstadiosResponse)!;
-            Console.WriteLine(equipos.ToJson());
+            
 
             foreach (Equipo equipo in equipos)
             {
@@ -130,15 +132,13 @@ namespace LIDOM_MVC.Controllers
         // POST: EquiposController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] Equipo equipo)
+        public  ActionResult Create([FromForm] Equipo equipo)
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            equipo.EqEstatus = "A".ToString();
 
             try
             {
-                equipo.EqEstatus = "A".ToString(); 
-                Console.WriteLine(equipo.ToJson());
-
                 var postTask = httpClient.PostAsJsonAsync<Equipo>($"{baseApiUrl}/equipos", equipo);
                 postTask.Wait();
                 var result = postTask.Result;
@@ -146,19 +146,17 @@ namespace LIDOM_MVC.Controllers
                 if (result.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
-                }
-                else
+                } else
                 {
-                    Console.WriteLine($"Request failed with status code {result.StatusCode}");
-                    var responseContent = result.Content.ReadAsStringAsync().Result;
-                    Console.WriteLine(responseContent);
-                    ModelState.AddModelError(string.Empty, "Error: " + result.ReasonPhrase);
+                    Console.WriteLine("Response Content: " + result.Content.ReadAsStringAsync().Result);
                 }
+                
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, "Error");
                 Console.WriteLine("Error: " + ex.Message);
+               
+                ModelState.AddModelError(string.Empty, "Ocurrió un error al crear el equipo.");
             }
             return View(equipo);
         }
