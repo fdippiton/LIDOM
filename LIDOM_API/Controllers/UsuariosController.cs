@@ -32,21 +32,18 @@ namespace LIDOM_API.Controllers
         }
 
         // GET: api/Usuarios/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        [Route("/O")]
+        [HttpGet]
+        public async Task<ActionResult<Usuario>> GetUsuario(string us, string pass)
         {
-          if (_context.Usuarios == null)
-          {
-              return NotFound();
-          }
-            var usuario = await _context.Usuarios.FindAsync(id);
+            Usuario authUser = _context.Usuarios.Where(x => x.UsuNombre == us && x.UsuPassword == pass).FirstOrDefault();
 
-            if (usuario == null)
+            if (authUser == null)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status400BadRequest, "ha ocurrido un error");
             }
 
-            return usuario;
+            return StatusCode(StatusCodes.Status200OK, authUser);
         }
 
         // PUT: api/Usuarios/5
@@ -82,18 +79,18 @@ namespace LIDOM_API.Controllers
 
         // POST: api/Usuarios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
-        {
-          if (_context.Usuarios == null)
-          {
-              return Problem("Entity set 'LidomContext.Usuarios'  is null.");
-          }
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
+        //
+        //public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        //{
+        //  if (_context.Usuarios == null)
+        //  {
+        //      return Problem("Entity set 'LidomContext.Usuarios'  is null.");
+        //  }
+        //    _context.Usuarios.Add(usuario);
+        //    await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.UsuId }, usuario);
-        }
+        //    return CreatedAtAction("GetUsuario", new { id = usuario.UsuId }, usuario);
+        //}
 
         // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
