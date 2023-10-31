@@ -17,9 +17,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EqId)
-            </th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.EqId)
+                </th>               
+            }
             <th>
                 @Html.DisplayNameFor(model => model.EqNombre)
             </th>
@@ -43,40 +46,41 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EqId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EqNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EqDescripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EqCiudad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EqEstadioNombre)
-            </td>
+        @foreach (var item in Model) {
+            <tr>
                 @if (User.IsInRole("Admin"))
                 {
                     <td>
-                    @Html.DisplayFor(modelItem => item.EqEstatus)
-                </td> 
+                        @Html.DisplayFor(modelItem => item.EqId)
+                    </td>                    
                 }
-                <td class="d-flex flex-nowrap">
+                <td>
+                    @Html.DisplayFor(modelItem => item.EqNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EqDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EqCiudad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EqEstadioNombre)
+                </td>
                     @if (User.IsInRole("Admin"))
                     {
-                        <span> @Html.ActionLink("Edit", "Edit", new { id=item.EqId }, new { @class = "btn btn-outline-secondary me-1" })</span>
-                        <span>   @Html.ActionLink("Details", "Details", new { id=item.EqId }, new { @class = "btn btn-outline-primary me-1" })</span>
-                        <span>   @Html.ActionLink("Delete", "Delete", new { id=item.EqId }, new { @class = "btn btn-outline-danger me-1" })</span>
-                 
-                        
+                        <td>
+                        @Html.DisplayFor(modelItem => item.EqEstatus)
+                        </td> 
                     }
-            </td>
-        </tr>
-}
+                    <td class="d-flex flex-nowrap">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span> @Html.ActionLink("Editar", "Edit", new { id=item.EqId }, new { @class = "btn btn-outline-secondary me-1" })</span>
+                            <span>   @Html.ActionLink("Detalles", "Details", new { id=item.EqId }, new { @class = "btn btn-outline-primary me-1" })</span>
+                            <span>   @Html.ActionLink("Eliminar", "Delete", new { id=item.EqId }, new { @class = "btn btn-outline-danger me-1" })</span>
+                        }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

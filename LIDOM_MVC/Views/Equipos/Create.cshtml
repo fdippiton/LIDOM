@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Crear </h1>
 
 <h4>Equipo</h4>
 <hr />
@@ -18,25 +18,25 @@
                 <input asp-for="EqId" class="form-control" />
                 <span asp-validation-for="EqId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="EqNombre" class="control-label"></label>
                 <input asp-for="EqNombre" class="form-control" />
                 <span asp-validation-for="EqNombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="EqDescripcion" class="control-label"></label>
                 <input asp-for="EqDescripcion" class="form-control" />
                 <span asp-validation-for="EqDescripcion" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="EqCiudad" class="control-label"></label>
                 <input asp-for="EqCiudad" class="form-control" />
                 <span asp-validation-for="EqCiudad" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="EqEstadio" class="control-label"></label>
                 <select asp-for="EqEstadio" asp-items="ViewBag.DropDownData" class="form-control">
-                    <option>Selecciona un estadio</option>
+                    <option>-- Selecciona un estadio --</option>
                 </select>
                 @* <input asp-for="EqEstadio" class="form-control" /> *@
                 <span asp-validation-for="EqEstadio" class="text-danger"></span>
@@ -46,15 +46,15 @@
                 <input asp-for="EqEstatus" class="form-control" />
                 <span asp-validation-for="EqEstatus" class="text-danger"></span>
             </div> *@
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group  mb-3">
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {

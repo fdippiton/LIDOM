@@ -15,9 +15,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EstId)
-            </th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.EstId)
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.EstNombre)
             </th>
@@ -28,23 +31,29 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstUbicacion)
-            </td>
-                <td class="d-flex flex-nowrap">
-                    @Html.ActionLink("Editar", "Edit", new { id=item.EstId }, new { @class = "btn btn-outline-secondary me-1" })
-                    @Html.ActionLink("Detalles", "Details", new { id=item.EstId }, new { @class = "btn btn-outline-primary me-1" })
-                    @Html.ActionLink("Eliminar", "Delete", new { id=item.EstId }, new { @class = "btn btn-outline-danger me-1" })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+            <tr>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstId)
+                    </td>                   
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstUbicacion)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td class="d-flex flex-nowrap">
+                        @Html.ActionLink("Editar", "Edit", new { id=item.EstId }, new { @class = "btn btn-outline-secondary me-1" })
+                        @Html.ActionLink("Detalles", "Details", new { id=item.EstId }, new { @class = "btn btn-outline-primary me-1" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id=item.EstId }, new { @class = "btn btn-outline-danger me-1" })
+                    </td>
+                }
+            </tr>
+        }
     </tbody>
 </table>
