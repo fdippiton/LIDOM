@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LIDOM_MVC.Models.FechaPartido>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FecFechaPartido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecTemporada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecHora)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecFechaPartido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecTemporada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecHora)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.FecId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.FecId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.FecId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

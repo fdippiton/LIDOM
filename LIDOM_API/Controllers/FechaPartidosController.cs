@@ -51,30 +51,18 @@ namespace LIDOM_API.Controllers
 
         // PUT: api/FechaPartidos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFechaPartido(int id, FechaPartido fechaPartido)
+        [HttpPut]
+        public async Task<IActionResult> PutFechaPartido(FechaPartido fechaPartido)
         {
-            if (id != fechaPartido.FecId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(fechaPartido).State = EntityState.Modified;
 
             try
             {
+                _context.FechaPartidos.Update(fechaPartido);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FechaPartidoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return NoContent();

@@ -1,0 +1,49 @@
+﻿@model LIDOM_MVC.Models.FechaPartido
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>FechaPartido</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FecId" class="control-label" hidden></label>
+                <input asp-for="FecId" class="form-control" hidden/>
+                <span asp-validation-for="FecId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FecFechaPartido" class="control-label"></label>
+                <input asp-for="FecFechaPartido" class="form-control" />
+                <span asp-validation-for="FecFechaPartido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FecTemporada" class="control-label"></label>
+                <input asp-for="FecTemporada" class="form-control" />
+                <span asp-validation-for="FecTemporada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FecHora" class="control-label"></label>
+                <input asp-for="FecHora" class="form-control" />
+                <span asp-validation-for="FecHora" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

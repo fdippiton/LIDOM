@@ -28,12 +28,44 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/FechaPartidos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVjaGFQYXJ0aWRvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/FechaPartidos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVjaGFQYXJ0aWRvc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/FechaPartidos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVjaGFQYXJ0aWRvc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/FechaPartidos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVjaGFQYXJ0aWRvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Posiciones/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zaWNpb25lc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Posiciones/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zaWNpb25lc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Posiciones/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zaWNpb25lc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Posiciones/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zaWNpb25lc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/Programacion/MVC/LIDOM/LIDOM_MVC/Views/Shared/Error.cshtml]

@@ -1,0 +1,37 @@
+﻿@model LIDOM_MVC.Models.FechaPartido
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>FechaPartido</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FecFechaPartido)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FecFechaPartido)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FecTemporada)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FecTemporada)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FecHora)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FecHora)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.FecId }) |
+    <a asp-action="Index">Back to List</a>
+</div>
