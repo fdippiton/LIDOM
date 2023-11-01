@@ -59,14 +59,14 @@ namespace LIDOM_MVC.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            ModelState.AddModelError(String.Empty, "error, esto no sirve ya.");
+            ModelState.AddModelError(String.Empty, "Error al crear posicion.");
             return View(posicione);
         }
 
         [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
-            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
             Posicione Info = new Posicione();
             using (var client = new HttpClient())
             {
@@ -77,20 +77,42 @@ namespace LIDOM_MVC.Controllers
                 if (Res.IsSuccessStatusCode)
                 {
                     var Response = Res.Content.ReadAsStringAsync().Result;
-                    Info = JsonConvert.DeserializeObject<Posicione>(Response);
+                    Info = JsonConvert.DeserializeObject<Posicione>(Response)!;
                 }
 
                 return View(Info);
             }
         }
 
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public async Task <ActionResult> Delete(int id)
         {
-            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            Posicione Info = new Posicione();
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseApiUrl);
-                var deleteTask = client.DeleteAsync($"api/Posiciones/" + id.ToString());
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/posiciones/" + id.ToString());
+                if (Res.IsSuccessStatusCode)
+                {
+                    var Response = Res.Content.ReadAsStringAsync().Result;
+                    Info = JsonConvert.DeserializeObject<Posicione>(Response)!;
+                }
+
+                return View(Info);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string id)
+        {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseApiUrl);
+                var deleteTask = client.DeleteAsync($"{baseApiUrl}/posiciones/" + id.ToString());
                 deleteTask.Wait();
                 var result = deleteTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -104,7 +126,7 @@ namespace LIDOM_MVC.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
-            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
             Posicione posicione = null;
             using (var client = new HttpClient())
             {

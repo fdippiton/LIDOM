@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Posiciones</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Crear nueva posicion</a>
 </p>
 <table class="table">
     <thead>
@@ -26,9 +26,9 @@
                 @Html.DisplayFor(modelItem => item.PosNombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.PosId }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.PosId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.PosId })
+   @*              @Html.ActionLink("Edit", "Edit", new { id=item.PosId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.PosId }) | *@
+                    @Html.ActionLink("Eliminar", "Delete", new { id=item.PosId }, new { @class = "btn btn-outline-danger me-1" })
             </td>
         </tr>
 }

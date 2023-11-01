@@ -120,29 +120,69 @@ namespace LIDOM_MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Details(int id)
+        public ActionResult Details(int id)
         {
-            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
-            FechaPartido fecInfo = new FechaPartido();
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(baseApiUrl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync($"api/FechaPartidos/" + id.ToString());
-                if (Res.IsSuccessStatusCode)
-                {
-                    var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                    fecInfo = JsonConvert.DeserializeObject<FechaPartido>(EmpResponse);
-                }
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            List<FechaPartido> fechapartidos = new List<FechaPartido>();
+            List<Temporada> temporadas = new List<Temporada>();
+            FechaPartidoViewModel fechapartidosViewModel = new FechaPartidoViewModel();
+            FechaPartido fechapartido = new FechaPartido();
+            Temporada temporada = new Temporada();
 
-                return View(fecInfo);
-            }
+            string jsonfechapartidosResponse = httpClient.GetStringAsync($"{baseApiUrl}/fechapartidos").Result;
+            fechapartidos = JsonConvert.DeserializeObject<List<FechaPartido>>(jsonfechapartidosResponse) ?? new List<FechaPartido>();
+
+            string jsonTemporadasResponse = httpClient.GetStringAsync($"{baseApiUrl}/temporadas").Result;
+            temporadas = JsonConvert.DeserializeObject<List<Temporada>>(jsonTemporadasResponse) ?? new List<Temporada>();
+
+            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
+            fechapartido = fechapartidos.FirstOrDefault(e => e.FecId == id)!;
+            temporada = temporadas.FirstOrDefault(s => s.TemId == fechapartido.FecTemporada)!;
+
+            // Luego, asigna los valores al ViewModel como lo hacías antes.
+            fechapartidosViewModel.FecId = fechapartido.FecId;
+            fechapartidosViewModel.FecFechaPartido = fechapartido.FecFechaPartido;
+            fechapartidosViewModel.FecHora = fechapartido.FecHora;
+            fechapartidosViewModel.FecTemporada = temporada.TemNombre;
+
+            return View(fechapartidosViewModel);
         }
-        [HttpPost]
-        public ActionResult Delete(int id)
+
+
+        // GET: FechaPartidosController/Delete/5
+        [HttpGet]
+        public  ActionResult Delete(int id)
         {
-            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            List<FechaPartido> fechapartidos = new List<FechaPartido>();
+            List<Temporada> temporadas = new List<Temporada>();
+            FechaPartidoViewModel fechapartidosViewModel = new FechaPartidoViewModel();
+            FechaPartido fechapartido = new FechaPartido();
+            Temporada temporada = new Temporada();
+
+            string jsonfechapartidosResponse = httpClient.GetStringAsync($"{baseApiUrl}/fechapartidos").Result;
+            fechapartidos = JsonConvert.DeserializeObject<List<FechaPartido>>(jsonfechapartidosResponse) ?? new List<FechaPartido>();
+
+            string jsonTemporadasResponse = httpClient.GetStringAsync($"{baseApiUrl}/temporadas").Result;
+            temporadas = JsonConvert.DeserializeObject<List<Temporada>>(jsonTemporadasResponse) ?? new List<Temporada>();
+
+            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
+            fechapartido = fechapartidos.FirstOrDefault(e => e.FecId == id)!;
+            temporada = temporadas.FirstOrDefault(s => s.TemId == fechapartido.FecTemporada)!;
+
+            // Luego, asigna los valores al ViewModel como lo hacías antes.
+            fechapartidosViewModel.FecId = fechapartido.FecId;
+            fechapartidosViewModel.FecFechaPartido = fechapartido.FecFechaPartido;
+            fechapartidosViewModel.FecHora = fechapartido.FecHora;
+            fechapartidosViewModel.FecTemporada = temporada.TemNombre;
+
+            return View(fechapartidosViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string id)
+        {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseApiUrl);
