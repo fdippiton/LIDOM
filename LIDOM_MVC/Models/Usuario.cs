@@ -11,7 +11,5 @@
         public string UsuPassword { get; set; } = null!;
 
         public string UsuEstado { get; set; } = null!;
-
-        public virtual Role UsuRolNavigation { get; set; } = null!;
     }
 }

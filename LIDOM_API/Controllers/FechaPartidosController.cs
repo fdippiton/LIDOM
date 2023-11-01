@@ -54,6 +54,7 @@ namespace LIDOM_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFechaPartido(int id, FechaPartido fechaPartido)
         {
+
             if (id != fechaPartido.FecId)
             {
                 return BadRequest();

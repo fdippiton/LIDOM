@@ -444,3 +444,7 @@ F:\Programacion\MVC\LIDOM\LIDOM_MVC\obj\Debug\net7.0\refint\LIDOM_MVC.dll
 F:\Programacion\MVC\LIDOM\LIDOM_MVC\obj\Debug\net7.0\LIDOM_MVC.pdb
 F:\Programacion\MVC\LIDOM\LIDOM_MVC\obj\Debug\net7.0\LIDOM_MVC.genruntimeconfig.cache
 F:\Programacion\MVC\LIDOM\LIDOM_MVC\obj\Debug\net7.0\ref\LIDOM_MVC.dll
+F:\Programacion\MVC\LIDOM\LIDOM_MVC\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+F:\Programacion\MVC\LIDOM\LIDOM_MVC\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_MVC\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\Users\Francine\Desktop\LIDOM_API\LIDOM_MVC\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
