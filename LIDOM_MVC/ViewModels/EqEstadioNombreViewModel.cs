@@ -11,7 +11,7 @@
         public string EqCiudad { get; set; } = null!;
 
 
-        public int EqEstadio { get; set; }
+        public string EqEstadio { get; set; }
 
         public string EqEstatus { get; set; } = null!;
     }

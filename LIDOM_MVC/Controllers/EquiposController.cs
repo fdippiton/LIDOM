@@ -61,28 +61,35 @@ namespace LIDOM_MVC.Controllers
 
         // GET: EquiposController/Details/5
         [HttpGet]
-        public async Task<ActionResult> Details(int id)
+        public ActionResult Details(int id)
         {
-
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
 
-
             Equipo equipo = new Equipo();
-            using (var client = new HttpClient())
-            {
+            Estadio estadio = new Estadio();
+            List<Equipo> equipos = new List<Equipo>();
+            List<Estadio> estadios = new List<Estadio>();
+            EqEstadioNombreViewModel eqEstadioNombreViewModel = new EqEstadioNombreViewModel();
 
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/equipos/" + id.ToString());
+            string jsonEquiposResponse = httpClient.GetStringAsync($"{baseApiUrl}/equipos").Result;
+            equipos = JsonConvert.DeserializeObject<List<Equipo>>(jsonEquiposResponse) ?? new List<Equipo>();
 
-                if (Res.IsSuccessStatusCode)
-                {
-                    var EquiResponse = Res.Content.ReadAsStringAsync().Result;
-                    equipo = JsonConvert.DeserializeObject<Equipo>(EquiResponse)!;
-                }
+            string jsonEstadiosResponse = httpClient.GetStringAsync($"{baseApiUrl}/estadios").Result;
+            estadios = JsonConvert.DeserializeObject<List<Estadio>>(jsonEstadiosResponse) ?? new List<Estadio>();
 
-                return View(equipo);
-            }
+            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
+            equipo = equipos.FirstOrDefault(e => e.EqId == id)!;
+            estadio = estadios.FirstOrDefault(s => s.EstId == equipo.EqEstadio)!;
+
+            // Luego, asigna los valores al ViewModel como lo hacías antes.
+            eqEstadioNombreViewModel.EqId = equipo.EqId;
+            eqEstadioNombreViewModel.EqCiudad = equipo.EqCiudad;
+            eqEstadioNombreViewModel.EqEstadio = estadio.EstNombre;
+            eqEstadioNombreViewModel.EqDescripcion = equipo.EqDescripcion;
+            eqEstadioNombreViewModel.EqEstatus = equipo.EqEstatus;
+            eqEstadioNombreViewModel.EqNombre = equipo.EqNombre;
+
+            return View(eqEstadioNombreViewModel);
         }
 
         // GET: EquiposController/Create
