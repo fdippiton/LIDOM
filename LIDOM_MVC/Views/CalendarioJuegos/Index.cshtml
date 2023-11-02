@@ -1,0 +1,54 @@
+﻿@model IEnumerable<LIDOM_MVC.ViewModels.CalendarioJuegoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Calendario de Juegos</h1>
+
+<p>
+    <a asp-action="Create" class="btn bg-primary text-white">Añadir nuevo partido</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CalJuegoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalFechaPartido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalEquipoLocal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalEquipoVisitante)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalJuegoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalFechaPartido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalEquipoLocal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalEquipoVisitante)
+            </td>
+            <td>
+                    @Html.ActionLink("Editar", "Edit", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-secondary me-1" })
+                    @Html.ActionLink("Detalles", "Details", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-primary me-1" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-danger me-1" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

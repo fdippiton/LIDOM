@@ -1,0 +1,55 @@
+﻿@model LIDOM_MVC.Models.CalendarioJuego
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Añadir nuevo juego </h1>
+
+<h4>Juego</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CalJuegoId" class="control-label" hidden></label>
+                <input asp-for="CalJuegoId" class="form-control" hidden/>
+                <span asp-validation-for="CalJuegoId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CalFechaPartido" class="control-label"></label>
+                <select asp-for="CalFechaPartido" asp-items="ViewBag.DropDownDataFec" class="form-control">
+                    <option>-- Selecciona una fecha para partido --</option>
+                </select>
+                <span asp-validation-for="CalFechaPartido" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CalEquipoLocal" class="control-label"></label>
+                <select asp-for="CalEquipoLocal" asp-items="ViewBag.DropDownDataEq" class="form-control">
+                    <option>-- Selecciona el equipo local --</option>
+                </select>
+                <span asp-validation-for="CalEquipoLocal" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CalEquipoVisitante" class="control-label"></label>
+                <select asp-for="CalEquipoVisitante" asp-items="ViewBag.DropDownDataEq" class="form-control">
+                    <option>-- Selecciona el equipo visitante --</option>
+                </select>
+                <span asp-validation-for="CalEquipoVisitante" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
