@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_API\\LIDOM_API.csproj": {}
+    "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_API\\LIDOM_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_API\\LIDOM_API.csproj": {
+    "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_API\\LIDOM_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_API\\LIDOM_API.csproj",
+        "projectUniqueName": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_API\\LIDOM_API.csproj",
         "projectName": "LIDOM_API",
-        "projectPath": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_API\\LIDOM_API.csproj",
+        "projectPath": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_API\\LIDOM_API.csproj",
         "packagesPath": "C:\\Users\\Francine\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_API\\obj\\",
+        "outputPath": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_MVC\\LIDOM_MVC.csproj": {}
+    "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_MVC\\LIDOM_MVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_MVC\\LIDOM_MVC.csproj": {
+    "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_MVC\\LIDOM_MVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_MVC\\LIDOM_MVC.csproj",
+        "projectUniqueName": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_MVC\\LIDOM_MVC.csproj",
         "projectName": "LIDOM_MVC",
-        "projectPath": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_MVC\\LIDOM_MVC.csproj",
+        "projectPath": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_MVC\\LIDOM_MVC.csproj",
         "packagesPath": "C:\\Users\\Francine\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_MVC\\obj\\",
+        "outputPath": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_MVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

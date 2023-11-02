@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qIdIMdi9Nwx2i/bcBQ2Glig+CnwOzUnY0jc9dKTAPdl/CJUo4YbEpGchI6RW0AiKfGyvJw8dTjL3D3o4ZqmTCQ==",
+  "dgSpecHash": "azlDhL4p838ve0aYApZ7bmt3bOIZMaxLotLB8g2vovMAnvtCu03li9P6CWzQjyYbt2rCQG8kBB7bcdD54z7KmA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_MVC\\LIDOM_MVC.csproj",
+  "projectFilePath": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_MVC\\LIDOM_MVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Francine\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Francine\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -194,12 +194,5 @@
     "C:\\Users\\Francine\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Francine\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_MVC\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

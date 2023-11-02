@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UiSw89PBYgUNpRF8q42gdbI548c5h+J1sQGDNUZgbGdPOMNP1M6sOkaxmTG/UdKyiistIeP9zsk2dVeShNK9KQ==",
+  "dgSpecHash": "DydDsuthV4F1bXcFs1xkSvlPinu1AUVFcSM2FGghjBbw5sjNn513OOYceWPz66UDt4u5R8+5J/Y5MXtjwt0t/g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Francine\\Desktop\\LIDOM_API\\LIDOM_API\\LIDOM_API.csproj",
+  "projectFilePath": "C:\\Users\\Francine\\Desktop\\LIDOM\\LIDOM_API\\LIDOM_API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Francine\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Francine\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

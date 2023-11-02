@@ -10,6 +10,32 @@
 <p>
     <a asp-action="Create" class="btn bg-primary text-white">Añadir nuevo partido</a>
 </p>
+
+
+<div class="container p-5">
+
+    @foreach(var item in Model){
+        <div class="row d-flex justify-content-center mb-2" style="">
+            <div class="row text-center" style="font-family: 'Rubik', sans-serif; border-radius: 5px 5px 0 0; background-color: #ea781a; color: #aa1100; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600;">
+                @item.CalFechaPartido.ToLongDateString()
+                @Html.DisplayFor(modelItem => item.CalFechaPartido)
+            </div>
+            <div class="row p-0">
+                <div class="col-5 py-3 text-center" style="background-color: #cfd0e2; color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
+                    @Html.DisplayFor(modelItem => item.CalEquipoLocal)
+                </div>
+                <div class="col-2 py-3 text-center" style="background-color: #aa1100;">
+                    <h1 style="color: #cfd0e2; font-family: 'Rubik', sans-serif; font-size: 25px; font-weight: 600;">VS</h1>
+                </div>
+                <div class="col-5 py-3 text-center" style="background-color: #cfd0e2; color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
+                    @Html.DisplayFor(modelItem => item.CalEquipoVisitante)
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
 <table class="table">
     <thead>
         <tr>
