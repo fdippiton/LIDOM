@@ -1,0 +1,68 @@
+﻿@model LIDOM_MVC.Models.Jugadore
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Crear</h1>
+
+<h4>Jugador</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="JugId" class="control-label" hidden></label>
+                <input asp-for="JugId" class="form-control" hidden/>
+                <span asp-validation-for="JugId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="JugNombre" class="control-label"></label>
+                <input asp-for="JugNombre" class="form-control" />
+                <span asp-validation-for="JugNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="JugApellidos" class="control-label"></label>
+                <input asp-for="JugApellidos" class="form-control" />
+                <span asp-validation-for="JugApellidos" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="JugPosicion" class="control-label"></label>
+                <select asp-for="JugPosicion" asp-items="ViewBag.DropDownDataPos" class="form-control">
+                    <option>-- Selecciona una posicion --</option>
+                </select>
+                <span asp-validation-for="JugPosicion" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="JugEquipo" class="control-label"></label>
+                <select asp-for="JugEquipo" asp-items="ViewBag.DropDownDataEq" class="form-control">
+                    <option>-- Selecciona un equipo --</option>
+                </select>
+                <span asp-validation-for="JugEquipo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="JugEdad" class="control-label"></label>
+                <input asp-for="JugEdad" class="form-control" />
+                <span asp-validation-for="JugEdad" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="JugNumCamiseta" class="control-label"></label>
+                <input asp-for="JugNumCamiseta" class="form-control" />
+                <span asp-validation-for="JugNumCamiseta" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

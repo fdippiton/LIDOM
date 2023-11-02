@@ -1,0 +1,63 @@
+﻿@model LIDOM_MVC.ViewModels.JugadoresViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Eliminar</h1>
+
+<h3>Estas seguro de que quieres eliminarlo?</h3>
+<div>
+    <h4>Jugador</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JugId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JugId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JugNombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JugNombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JugApellidos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JugApellidos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JugPosicion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JugPosicion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JugEquipo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JugEquipo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JugEdad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JugEdad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JugNumCamiseta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JugNumCamiseta)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Eliminar" class="btn btn-danger me-2" /> 
+        <a asp-action="Index">Volver a la lista</a>
+    </form>
+</div>

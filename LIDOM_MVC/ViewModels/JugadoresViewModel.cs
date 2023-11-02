@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace LIDOM_MVC.Models
+namespace LIDOM_MVC.ViewModels
 {
-    public class Jugadore
+    public class JugadoresViewModel
     {
         [DisplayName("Id")]
         public int JugId { get; set; }
@@ -11,13 +11,12 @@ namespace LIDOM_MVC.Models
         [DisplayName("Apellido")]
         public string JugApellidos { get; set; } = null!;
         [DisplayName("Posicion")]
-        public int JugPosicion { get; set; }
+        public string JugPosicion { get; set; }
         [DisplayName("Equipo")]
-        public int JugEquipo { get; set; }
+        public string JugEquipo { get; set; }
         [DisplayName("Edad")]
         public int JugEdad { get; set; }
         [DisplayName("Numero en camiseta")]
         public int JugNumCamiseta { get; set; }
-
     }
 }

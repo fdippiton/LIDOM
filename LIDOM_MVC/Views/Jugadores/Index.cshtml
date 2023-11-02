@@ -1,0 +1,72 @@
+﻿@model IEnumerable<LIDOM_MVC.ViewModels.JugadoresViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Jugadores</h1>
+
+<p>
+    <a asp-action="Create" class="btn bg-primary text-white">Añadir nuevo jugador</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JugId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JugNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JugApellidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JugPosicion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JugEquipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JugEdad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JugNumCamiseta)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JugId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JugNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JugApellidos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JugPosicion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JugEquipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JugEdad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JugNumCamiseta)
+            </td>
+            <td>
+                    @Html.ActionLink("Editar", "Edit", new { id=item.JugId }, new { @class = "btn btn-outline-secondary me-1" }) 
+                    @Html.ActionLink("Detalles", "Details", new { id=item.JugId }, new { @class = "btn btn-outline-primary me-1" }) 
+                    @Html.ActionLink("Eliminar", "Delete", new { id=item.JugId }, new { @class = "btn btn-outline-danger me-1" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
