@@ -1,83 +1,151 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LIDOM_MVC.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace LIDOM_MVC.Controllers
 {
     public class ResultadoEquiposController : Controller
     {
         // GET: ResultadoEquiposController
-        public ActionResult Index()
+        private readonly IConfiguration _configuration;
+        private readonly HttpClient httpClient;
+
+        public ResultadoEquiposController(IConfiguration configuration)
         {
-            return View();
+            httpClient = new HttpClient();
+            _configuration = configuration;
         }
 
-        // GET: ResultadoEquiposController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public async Task<ActionResult> Index()
         {
-            return View();
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            List<ResultadoEquipo> Info = new List<ResultadoEquipo>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseApiUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ResultadoEquipos");
+                if (Res.IsSuccessStatusCode)
+                {
+                    var Response = Res.Content.ReadAsStringAsync().Result;
+                    Info = JsonConvert.DeserializeObject<List<ResultadoEquipo>>(Response);
+                }
+
+                return View(Info);
+            }
         }
 
-        // GET: ResultadoEquiposController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ResultadoEquiposController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([FromForm] ResultadoEquipo resultadoEquipo)
         {
-            try
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            using (var client = new HttpClient())
             {
-                return RedirectToAction(nameof(Index));
+                client.BaseAddress = new Uri(baseApiUrl);
+                var postTask = client.PostAsJsonAsync<ResultadoEquipo>("api/ResultadoEquipos", resultadoEquipo);
+                postTask.Wait();
+                var result = postTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            ModelState.AddModelError(String.Empty, "error, esto no sirve ya.");
+            return View(resultadoEquipo);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)
+        {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            ResultadoEquipo Info = new ResultadoEquipo();
+            using (var client = new HttpClient())
             {
-                return View();
+                client.BaseAddress = new Uri(baseApiUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"api/ResultadoEquipos/" + id.ToString());
+                if (Res.IsSuccessStatusCode)
+                {
+                    var Response = Res.Content.ReadAsStringAsync().Result;
+                    Info = JsonConvert.DeserializeObject<ResultadoEquipo>(Response);
+                }
+                return View(Info);
             }
         }
 
-        // GET: ResultadoEquiposController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ResultadoEquiposController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ResultadoEquiposController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseApiUrl);
+                var deleteTask = client.DeleteAsync($"api/ResultadoEquipos/" + id.ToString());
+                deleteTask.Wait();
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
         }
 
-        // POST: ResultadoEquiposController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpGet]
+        public async Task<ActionResult> Edit(string id)
         {
-            try
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            ResultadoEquipo resultadoEquipo = null;
+            using (var client = new HttpClient())
             {
-                return RedirectToAction(nameof(Index));
+                client.BaseAddress = new Uri(baseApiUrl);
+
+                var result = await client.GetAsync($"api/ResultadoEquipos" + id.ToString());
+
+                if (result.IsSuccessStatusCode)
+                {
+                    resultadoEquipo = await result.Content.ReadAsAsync<ResultadoEquipo>();
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "error, esto no sirve ya.");
+                }
             }
-            catch
+            return View(resultadoEquipo);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit([FromForm] ResultadoEquipo resultadoEquipo)
+        {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            if (ModelState.IsValid)
             {
-                return View();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(baseApiUrl);
+                    var response = await client.PutAsJsonAsync("api/ResultadoEquipos", resultadoEquipo);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "error, esto no sirve ya.");
+                    }
+                }
+                return RedirectToAction("Index");
             }
+            return View(resultadoEquipo);
         }
     }
 }

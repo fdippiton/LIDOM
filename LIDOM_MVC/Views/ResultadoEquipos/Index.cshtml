@@ -1,0 +1,84 @@
+﻿@model IEnumerable<LIDOM_MVC.Models.ResultadoEquipo>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ResId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResPartido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResEquipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResCarreras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResHits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResErrores)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResJuegoGanado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResJuegoPerdido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResJuegoEmpate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResPartido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResEquipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResCarreras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResHits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResErrores)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResJuegoGanado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResJuegoPerdido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResJuegoEmpate)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.ResId  }) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.ResId  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.ResId  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
