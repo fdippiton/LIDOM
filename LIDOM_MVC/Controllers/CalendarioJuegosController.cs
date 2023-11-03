@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Reflection;
 using System.Text;
 
 namespace LIDOM_MVC.Controllers
@@ -31,8 +32,9 @@ namespace LIDOM_MVC.Controllers
             List<CalendarioJuego> calendarioJuegos = new List<CalendarioJuego>();
             List<FechaPartido> fechapartidos = new List<FechaPartido>();
             List<Equipo> equipos = new List<Equipo>();
-           
+
             List<CalendarioJuegoViewModel> calendarioJuegoViewModel = new List<CalendarioJuegoViewModel>();
+            
 
             string jsonCalendarioJuegosResponse = httpClient.GetStringAsync($"{baseApiUrl}/calendariojuegos").Result;
             calendarioJuegos = string.IsNullOrEmpty(jsonCalendarioJuegosResponse) ? calendarioJuegos : JsonConvert.DeserializeObject<List<CalendarioJuego>>(jsonCalendarioJuegosResponse)!;
@@ -54,9 +56,12 @@ namespace LIDOM_MVC.Controllers
                     CalEquipoLocal = equipos.Where(e => juego.CalEquipoLocal == e.EqId).Select(e => e.EqNombre).FirstOrDefault()!,
                     CalEquipoVisitante = equipos.Where(e => juego.CalEquipoVisitante == e.EqId).Select(e => e.EqNombre).FirstOrDefault()!,
                     CalFechaPartido = fechapartidos.Where(e => juego.CalFechaPartido == e.FecId).Select(e => e.FecFechaPartido).FirstOrDefault()!,
+                    FecHora = fechapartidos.Where(e => juego.CalFechaPartido == e.FecId).Select(e => e.FecHora).FirstOrDefault()!,
+
                 };
                 calendarioJuegoViewModel.Add(customCalendarioJuego);
             };
+
 
             return View(calendarioJuegoViewModel);
         }

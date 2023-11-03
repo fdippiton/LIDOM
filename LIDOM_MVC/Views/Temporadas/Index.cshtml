@@ -14,7 +14,7 @@
     }
 </p>
 <table class="table">
-    <thead>
+    <thead class="table-dark">
         <tr>
             @if (User.IsInRole("Admin"))
             {
@@ -47,11 +47,13 @@
                     @Html.DisplayFor(modelItem => item.TemNombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TemFecInicio)
+                    @item.TemFecInicio.ToLongDateString()
+                   @*  @Html.DisplayFor(modelItem => item.TemFecInicio) *@
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TemFecFinal)
-                </td>
+                    @item.TemFecFinal.ToLongDateString()
+@*                     @Html.DisplayFor(modelItem => item.TemFecFinal)
+ *@                </td>
                     @if (User.IsInRole("Admin"))
                     {
                         <td class="d-flex flex-nowrap">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LIDOM_API.Models;
 
@@ -15,8 +16,7 @@ public partial class CalendarioJuego
 
     public virtual Equipo? CalEquipoLocalNavigation { get; set; } 
 
-    public virtual Equipo? CalEquipoVisitanteNavigation { get; set; } 
-
+    public virtual Equipo? CalEquipoVisitanteNavigation { get; set; }
     public virtual FechaPartido? CalFechaPartidoNavigation { get; set; } 
 
     public virtual ICollection<Partido> Partidos { get; set; } = new List<Partido>();

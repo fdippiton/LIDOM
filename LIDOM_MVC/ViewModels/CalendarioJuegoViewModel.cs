@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using LIDOM_MVC.Models;
+using System.ComponentModel;
 
 namespace LIDOM_MVC.ViewModels
 {
@@ -12,5 +13,8 @@ namespace LIDOM_MVC.ViewModels
         public string CalEquipoLocal { get; set; }
         [DisplayName("Equipo visitante")]
         public string CalEquipoVisitante { get; set; }
+        [DisplayName("Hora")]
+        public TimeSpan FecHora { get; set; }
+
     }
 }
