@@ -18,27 +18,49 @@
 <div class="container p-5">
 
     @foreach(var item in Model){
-        <div class="row d-flex justify-content-center mb-2" style="">
-            <div class="row d-flex justify-content-between" style="border: 2px solid #0f34ad; font-family: 'Rubik', sans-serif; border-radius: 5px 5px 0 0; background-color: #ea781a; color: #aa1100; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600;">
-                <div class="col-5">
+        <div class="row d-flex justify-content-center mb-3" style="">
+            <div class="row d-flex justify-content-between" style="font-family: 'Rubik', sans-serif; border-radius: 5px 5px 0 0; background-color: #ea781a; color: #aa1100; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600;">
+                <div class="col-5 text-center">
                     @item.FecFechaPartido.ToLongDateString()
                 </div>
-                <div class="col-5">
+                <div class="col-5 text-center">
                     Hora: @item.FecHora.Hours:@item.FecHora.Minutes
                 </div>
                
             </div>
-            <div class="row p-0" style="border-bottom: 2px solid #0f34ad; border-left: 2px solid #0f34ad; border-right: 2px solid #0f34ad;">
-                <div class="col-5 py-2 text-center" style="background-color: #cfd0e2; color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
-                    @Html.DisplayFor(modelItem => item.EquipoLocal)
+            <div class="row p-0" style="background-color: #cfd0e2;">
+                <div class="col-5 py-2 text-center">
+                    <div>
+                        <h6 style="margin: 0;"> Equipo Local</h6>
+                    </div>
+                    <div style="color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
+                        @Html.DisplayFor(modelItem => item.EquipoLocal)
+                    </div>
                 </div>
-                <div class="col-2 py-2 text-center" style="background-color: #aa1100;">
-                    <h1 style="color: #cfd0e2; font-family: 'Rubik', sans-serif; font-size: 25px; font-weight: 600;">VS</h1>
+                <div class="col-2 py-2 text-center" style="background-color: #2D2D2D; margin: auto 0;">
+                    <h1 style="margin:auto; color: #cfd0e2; font-family: 'Rubik', sans-serif; font-size: 25px; font-weight: 600; margin0">VS</h1>
                 </div>
-                <div class="col-5 py-2 text-center" style="background-color: #cfd0e2; color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
-                    @Html.DisplayFor(modelItem => item.EquipoVisitante)
+                <div class="col-5 py-2 text-center">
+
+                    <div>
+                        <h6 style="margin: 0;"> Equipo Visitante</h6>
+                    </div>
+                    <div style="color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
+                        @Html.DisplayFor(modelItem => item.EquipoVisitante)
+                    </div>
+                    
                 </div>
             </div>
+
+            <div class="row d-flex justify-content-between" style="background-color: #A2A9AF; border-radius: 0px 0px 5px 5px; font-weight: bold;">
+                <div class="col-5 text-center">
+                    <h6 style="margin: auto 0; font-size: 14px; padding: 3px 0;">@Html.DisplayFor(modelItem => item.EstNombre)</h6>
+                </div>
+                <div class="col-5 text-center">
+                    <h6 style="margin: auto 0; font-size: 14px; padding: 3px 0;">@Html.DisplayFor(modelItem => item.TemNombre)</h6>
+                </div>
+            </div>
+
         </div>
 
     }
@@ -80,7 +102,7 @@
                         @Html.DisplayFor(modelItem => item.CalJuegoId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FecFechaPartido)
+                        @item.FecFechaPartido.ToLongDateString()
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FecHora)
@@ -97,7 +119,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EstNombre)
                     </td>
-                <td>
+                    <td class="d-flex flex-nowrap">
                         @Html.ActionLink("Editar", "Edit", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-secondary me-1" })
                         @Html.ActionLink("Detalles", "Details", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-primary me-1" })
                         @Html.ActionLink("Eliminar", "Delete", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-danger me-1" })

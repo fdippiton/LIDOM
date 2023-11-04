@@ -1,4 +1,4 @@
-﻿@model LIDOM_MVC.ViewModels.CalendarioJuegoViewModel
+﻿@model LIDOM_MVC.ViewModels.CalendarioViewModel
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,22 +17,40 @@
             @Html.DisplayFor(model => model.CalJuegoId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CalFechaPartido)
+            @Html.DisplayNameFor(model => model.FecFechaPartido)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CalFechaPartido)
+            @Html.DisplayFor(model => model.FecFechaPartido)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CalEquipoLocal)
+            @Html.DisplayNameFor(model => model.EquipoLocal)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CalEquipoLocal)
+            @Html.DisplayFor(model => model.EquipoLocal)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CalEquipoVisitante)
+            @Html.DisplayNameFor(model => model.EquipoVisitante)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CalEquipoVisitante)
+            @Html.DisplayFor(model => model.EquipoVisitante)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FecHora)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FecHora)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TemNombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TemNombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EstNombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EstNombre)
         </dd>
     </dl>
 </div>
