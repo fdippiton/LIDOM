@@ -26,44 +26,96 @@ namespace LIDOM_MVC.Controllers
         }
 
         // GET: CalendarioJuegosController
-        public ActionResult Index()
+        public async Task <ActionResult> Index()
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
-            List<CalendarioJuego> calendarioJuegos = new List<CalendarioJuego>();
-            List<FechaPartido> fechapartidos = new List<FechaPartido>();
-            List<Equipo> equipos = new List<Equipo>();
+            List<CalendarioViewModel> calendarioViewModel = new List<CalendarioViewModel>();
 
-            List<CalendarioJuegoViewModel> calendarioJuegoViewModel = new List<CalendarioJuegoViewModel>();
-            
-
-            string jsonCalendarioJuegosResponse = httpClient.GetStringAsync($"{baseApiUrl}/calendariojuegos").Result;
-            calendarioJuegos = string.IsNullOrEmpty(jsonCalendarioJuegosResponse) ? calendarioJuegos : JsonConvert.DeserializeObject<List<CalendarioJuego>>(jsonCalendarioJuegosResponse)!;
-
-
-            string jsonfechapartidosResponse = httpClient.GetStringAsync($"{baseApiUrl}/fechapartidos").Result;
-            fechapartidos = string.IsNullOrEmpty(jsonfechapartidosResponse) ? fechapartidos : JsonConvert.DeserializeObject<List<FechaPartido>>(jsonfechapartidosResponse)!;
-
-            string jsonEquiposResponse = httpClient.GetStringAsync($"{baseApiUrl}/equipos").Result;
-            equipos = string.IsNullOrEmpty(jsonEquiposResponse) ? equipos : JsonConvert.DeserializeObject<List<Equipo>>(jsonEquiposResponse)!;
-
-
-            foreach (CalendarioJuego juego in calendarioJuegos)
+            try
             {
-                CalendarioJuegoViewModel customCalendarioJuego = new CalendarioJuegoViewModel()
+
+                using (var client = new HttpClient())
                 {
-
-                    CalJuegoId = juego.CalJuegoId,
-                    CalEquipoLocal = equipos.Where(e => juego.CalEquipoLocal == e.EqId).Select(e => e.EqNombre).FirstOrDefault()!,
-                    CalEquipoVisitante = equipos.Where(e => juego.CalEquipoVisitante == e.EqId).Select(e => e.EqNombre).FirstOrDefault()!,
-                    CalFechaPartido = fechapartidos.Where(e => juego.CalFechaPartido == e.FecId).Select(e => e.FecFechaPartido).FirstOrDefault()!,
-                    FecHora = fechapartidos.Where(e => juego.CalFechaPartido == e.FecId).Select(e => e.FecHora).FirstOrDefault()!,
-
-                };
-                calendarioJuegoViewModel.Add(customCalendarioJuego);
-            };
+                    client.BaseAddress = new Uri(baseApiUrl);
+                    // Establece la URL de tu Web API
 
 
-            return View(calendarioJuegoViewModel);
+                    // Establece el tipo de contenido que esperas en la respuesta
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    // Realiza la solicitud HTTP para llamar al endpoint de la Web API
+                    HttpResponseMessage response = await client.GetAsync($"{baseApiUrl}/calendariojuegos");
+
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Procesa la respuesta JSON
+                        var data = await response.Content.ReadAsStringAsync();
+
+                        // Deserializa los datos JSON a objetos C# utilizando un marco como Newtonsoft.Json
+                        calendarioViewModel = JsonConvert.DeserializeObject<List<CalendarioViewModel>>(data) ?? new List<CalendarioViewModel>();
+                        //calendarioViewModel = JsonConvert.DeserializeObject<CalendarioViewModel[]>(data);
+
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error al llamar a la Web API: " + response.ReasonPhrase);
+                        ModelState.AddModelError(String.Empty, "Error al obtener datos. Código de estado: " + response.StatusCode);
+                    }
+
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
+            }
+            return View(calendarioViewModel);
+
+            //string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            //List<CalendarioJuego> calendarioJuegos = new List<CalendarioJuego>();
+            //List<FechaPartido> fechapartidos = new List<FechaPartido>();
+            //List<Equipo> equipos = new List<Equipo>();
+
+            //List<CalendarioJuegoViewModel> calendarioJuegoViewModel = new List<CalendarioJuegoViewModel>();
+
+
+            //string jsonCalendarioJuegosResponse = httpClient.GetStringAsync($"{baseApiUrl}/calendariojuegos").Result;
+            //calendarioJuegos = string.IsNullOrEmpty(jsonCalendarioJuegosResponse) ? calendarioJuegos : JsonConvert.DeserializeObject<List<CalendarioJuego>>(jsonCalendarioJuegosResponse)!;
+
+
+            //string jsonfechapartidosResponse = httpClient.GetStringAsync($"{baseApiUrl}/fechapartidos").Result;
+            //fechapartidos = string.IsNullOrEmpty(jsonfechapartidosResponse) ? fechapartidos : JsonConvert.DeserializeObject<List<FechaPartido>>(jsonfechapartidosResponse)!;
+
+            //string jsonEquiposResponse = httpClient.GetStringAsync($"{baseApiUrl}/equipos").Result;
+            //equipos = string.IsNullOrEmpty(jsonEquiposResponse) ? equipos : JsonConvert.DeserializeObject<List<Equipo>>(jsonEquiposResponse)!;
+
+
+            //foreach (CalendarioJuego juego in calendarioJuegos)
+            //{
+            //    CalendarioJuegoViewModel customCalendarioJuego = new CalendarioJuegoViewModel()
+            //    {
+
+            //        CalJuegoId = juego.CalJuegoId,
+            //        CalEquipoLocal = equipos.Where(e => juego.CalEquipoLocal == e.EqId).Select(e => e.EqNombre).FirstOrDefault()!,
+            //        CalEquipoVisitante = equipos.Where(e => juego.CalEquipoVisitante == e.EqId).Select(e => e.EqNombre).FirstOrDefault()!,
+            //        CalFechaPartido = fechapartidos.Where(e => juego.CalFechaPartido == e.FecId).Select(e => e.FecFechaPartido).FirstOrDefault()!,
+            //        FecHora = fechapartidos.Where(e => juego.CalFechaPartido == e.FecId).Select(e => e.FecHora).FirstOrDefault()!,
+
+            //    };
+            //    calendarioJuegoViewModel.Add(customCalendarioJuego);
+            //};
+
+
+            //return View(calendarioJuegoViewModel);
         }
 
         // GET: CalendarioJuegosController/Details/5
@@ -303,6 +355,63 @@ namespace LIDOM_MVC.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+
+
+
+        public async Task <ActionResult> Main()
+        {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            List<CalendarioViewModel> calendarioViewModel = new List<CalendarioViewModel>();
+
+            try
+            {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseApiUrl);
+                // Establece la URL de tu Web API
+
+
+                // Establece el tipo de contenido que esperas en la respuesta
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Realiza la solicitud HTTP para llamar al endpoint de la Web API
+                HttpResponseMessage response = await client.GetAsync($"{baseApiUrl}/calendariojuegos");
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Procesa la respuesta JSON
+                    var data = await response.Content.ReadAsStringAsync();
+                    
+                    // Deserializa los datos JSON a objetos C# utilizando un marco como Newtonsoft.Json
+                    calendarioViewModel = JsonConvert.DeserializeObject<List<CalendarioViewModel>>(data) ?? new List<CalendarioViewModel>();
+                    //calendarioViewModel = JsonConvert.DeserializeObject<CalendarioViewModel[]>(data);
+
+                    
+                }
+                else
+                {
+                     Console.WriteLine("Error al llamar a la Web API: " + response.ReasonPhrase);
+                    ModelState.AddModelError(String.Empty, "Error al obtener datos. Código de estado: " + response.StatusCode);
+                }
+            
+            }
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
+            }
+            return View(calendarioViewModel);
         }
     }
 }

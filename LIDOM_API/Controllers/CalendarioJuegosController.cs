@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LIDOM_API.Models;
+using LIDOM_API.ViewModels;
 
 namespace LIDOM_API.Controllers
 {
@@ -22,13 +23,28 @@ namespace LIDOM_API.Controllers
 
         // GET: api/CalendarioJuegos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CalendarioJuego>>> GetCalendarioJuegos()
+        public async Task<ActionResult<IEnumerable<CalendarioJuegoViewModel>>> GetCalendarioJuegos()
         {
           if (_context.CalendarioJuegos == null)
           {
               return NotFound();
           }
-            return await _context.CalendarioJuegos.ToListAsync();
+            return await _context.CalendarioJuegos
+                .Include(x => x.CalFechaPartidoNavigation) 
+                .Include(x => x.CalFechaPartidoNavigation)
+                .Include(x => x.CalEquipoLocalNavigation)
+                .Include(x => x.CalEquipoVisitanteNavigation)
+                .ThenInclude(x => x.EqEstadioNavigation)
+                .Select(match => new CalendarioJuegoViewModel
+                {
+                    CalJuegoId = match.CalJuegoId,
+                    FecFechaPartido = match.CalFechaPartidoNavigation!.FecFechaPartido,
+                    FecHora = match.CalFechaPartidoNavigation.FecHora,
+                    TemNombre = match.CalFechaPartidoNavigation.FecTemporadaNavigation!.TemNombre,
+                    EquipoLocal = match.CalEquipoLocalNavigation.EqNombre,
+                    EquipoVisitante = match.CalEquipoVisitanteNavigation!.EqNombre,
+                    EstNombre = match.CalEquipoLocalNavigation.EqEstadioNavigation!.EstNombre
+                }).ToListAsync();
         }
 
         // GET: api/CalendarioJuegos/5
@@ -119,5 +135,13 @@ namespace LIDOM_API.Controllers
         {
             return (_context.CalendarioJuegos?.Any(e => e.CalJuegoId == id)).GetValueOrDefault();
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> ObtenerDatosCalendarioJuego()
+        //{
+        //    var resultados = await _context.CalendarioJuegoView.FromSqlRaw("EXEC ObtenerDatosCalendarioJuego").ToListAsync();
+
+        //    return Ok(resultados);
+        //}
     }
 }

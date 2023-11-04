@@ -7,12 +7,13 @@ namespace LIDOM_MVC.Models
     {
         [DisplayName("Id")]
         public int CalJuegoId { get; set; }
+        [DisplayName("Fecha de partido")]
+        public int CalFechaPartido { get; set; }
         [DisplayName("Equipo Local")]
         public int CalEquipoLocal { get; set; }
         [DisplayName("Equipo Visitante")]
         public int CalEquipoVisitante { get; set; }
+
         
-        [DisplayName("Fecha de partido")]
-        public int CalFechaPartido { get; set; }
     }
 }

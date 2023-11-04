@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LIDOM_MVC.ViewModels.CalendarioJuegoViewModel>
+﻿@model IEnumerable<LIDOM_MVC.ViewModels.CalendarioViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -21,7 +21,7 @@
         <div class="row d-flex justify-content-center mb-2" style="">
             <div class="row d-flex justify-content-between" style="border: 2px solid #0f34ad; font-family: 'Rubik', sans-serif; border-radius: 5px 5px 0 0; background-color: #ea781a; color: #aa1100; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600;">
                 <div class="col-5">
-                    @item.CalFechaPartido.ToLongDateString()
+                    @item.FecFechaPartido.ToLongDateString()
                 </div>
                 <div class="col-5">
                     Hora: @item.FecHora.Hours:@item.FecHora.Minutes
@@ -30,13 +30,13 @@
             </div>
             <div class="row p-0" style="border-bottom: 2px solid #0f34ad; border-left: 2px solid #0f34ad; border-right: 2px solid #0f34ad;">
                 <div class="col-5 py-2 text-center" style="background-color: #cfd0e2; color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
-                    @Html.DisplayFor(modelItem => item.CalEquipoLocal)
+                    @Html.DisplayFor(modelItem => item.EquipoLocal)
                 </div>
                 <div class="col-2 py-2 text-center" style="background-color: #aa1100;">
                     <h1 style="color: #cfd0e2; font-family: 'Rubik', sans-serif; font-size: 25px; font-weight: 600;">VS</h1>
                 </div>
                 <div class="col-5 py-2 text-center" style="background-color: #cfd0e2; color: #0f34ad; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
-                    @Html.DisplayFor(modelItem => item.CalEquipoVisitante)
+                    @Html.DisplayFor(modelItem => item.EquipoVisitante)
                 </div>
             </div>
         </div>
@@ -53,13 +53,22 @@
                     @Html.DisplayNameFor(model => model.CalJuegoId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CalFechaPartido)
+                    @Html.DisplayNameFor(model => model.FecFechaPartido)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CalEquipoLocal)
+                    @Html.DisplayNameFor(model => model.FecHora)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CalEquipoVisitante)
+                    @Html.DisplayNameFor(model => model.TemNombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EquipoLocal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EquipoVisitante)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstNombre)
                 </th>
                 <th></th>
             </tr>
@@ -67,18 +76,27 @@
         <tbody>
     @foreach (var item in Model) {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CalJuegoId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CalFechaPartido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CalEquipoLocal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CalEquipoVisitante)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CalJuegoId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FecFechaPartido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FecHora)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TemNombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipoLocal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipoVisitante)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstNombre)
+                    </td>
                 <td>
                         @Html.ActionLink("Editar", "Edit", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-secondary me-1" })
                         @Html.ActionLink("Detalles", "Details", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-primary me-1" })
