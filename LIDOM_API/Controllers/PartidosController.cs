@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LIDOM_API.Models;
+using LIDOM_API.ViewModels;
 
 namespace LIDOM_API.Controllers
 {
@@ -22,14 +23,70 @@ namespace LIDOM_API.Controllers
 
         // GET: api/Partidos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Partido>>> GetPartidos()
+        public async Task<ActionResult<IEnumerable<PartidoViewModel>>> GetPartidos()
         {
-          if (_context.Partidos == null)
-          {
-              return NotFound();
-          }
-            return await _context.Partidos.ToListAsync();
+            if (_context.Partidos == null)
+            {
+                return NotFound();
+            }
+            return await _context.Partidos
+                .Include(x => x.ParEquipoGanadorNavigation)
+                .Include(x => x.ParEquipoPerdedorNavigation)
+                .Include(x => x.ParJuegoNavigation.CalEquipoLocalNavigation!)
+                .Include(x => x.ParJuegoNavigation.CalEquipoLocalNavigation!.EqEstadioNavigation!)
+                .Include(x => x.ParJuegoNavigation.CalEquipoVisitanteNavigation!)
+                .Include(x => x.ParJuegoNavigation.CalFechaPartidoNavigation!)
+                .Include(x => x.ParJuegoNavigation.CalFechaPartidoNavigation!)
+                .Include(x => x.ParJuegoNavigation.CalFechaPartidoNavigation!.FecTemporadaNavigation!)
+                .Select(match => new PartidoViewModel
+                {
+                    ParId = match.ParId,
+                    ParJuego = match.ParJuegoNavigation.CalJuegoId,
+                    FecId = match.ParJuegoNavigation.CalFechaPartidoNavigation!.FecId,
+                    FecFechaPartido = match.ParJuegoNavigation.CalFechaPartidoNavigation!.FecFechaPartido,
+                    FecHora = match.ParJuegoNavigation.CalFechaPartidoNavigation!.FecHora,
+                    ParEquipoGanador = match.ParEquipoGanadorNavigation.EqNombre,
+                    ParEquipoPerdedor = match.ParEquipoPerdedorNavigation.EqNombre,
+                    TemNombre = match.ParJuegoNavigation.CalFechaPartidoNavigation!.FecTemporadaNavigation!.TemNombre,
+                    EquipoLocal = match.ParJuegoNavigation.CalEquipoLocalNavigation!.EqNombre,
+                    EquipoVisitante = match.ParJuegoNavigation.CalEquipoVisitanteNavigation!.EqNombre,
+                    EstNombre = match.ParJuegoNavigation.CalEquipoLocalNavigation!.EqEstadioNavigation!.EstNombre,
+                    ParEquipoGanadorId = match.ParEquipoPerdedorNavigation.EqId,
+                    ParEquipoPerdedorId = match.ParEquipoPerdedorNavigation.EqId,
+
+                }).ToListAsync();
         }
+
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<PartidoCalendarioViewModel>>> GetPartidoss()
+        //{
+        //    if (_context.Partidos == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return await _context.Partidos
+        //        .Include(x => x.ParEquipoGanadorNavigation)
+        //        .Include(x => x.ParEquipoPerdedorNavigation)
+        //        .Include(x => x.ParJuegoNavigation.CalEquipoLocalNavigation!)
+        //        .Include(x => x.ParJuegoNavigation.CalEquipoLocalNavigation!.EqEstadioNavigation!)
+        //        .Include(x => x.ParJuegoNavigation.CalEquipoVisitanteNavigation!)
+        //        .Include(x => x.ParJuegoNavigation.CalFechaPartidoNavigation!)
+        //        .Include(x => x.ParJuegoNavigation.CalFechaPartidoNavigation!)
+        //        .Include(x => x.ParJuegoNavigation.CalFechaPartidoNavigation!.FecTemporadaNavigation!)
+        //        .Select(match => new PartidoCalendarioViewModel
+        //        {
+        //            ParId = match.ParId,
+        //            ParJuego = match.ParJuegoNavigation.CalJuegoId,
+        //            FecId = match.ParJuegoNavigation.CalFechaPartidoNavigation!.FecId,
+        //            FecFechaPartido = match.ParJuegoNavigation.CalFechaPartidoNavigation!.FecFechaPartido,
+        //            FecHora = match.ParJuegoNavigation.CalFechaPartidoNavigation!.FecHora,
+        //            ParEquipoGanador = match.ParEquipoGanadorNavigation.EqNombre,
+        //            ParEquipoPerdedor = match.ParEquipoPerdedorNavigation.EqNombre,
+        //            ParEquipoGanadorId = match.ParEquipoPerdedorNavigation.EqId,
+        //            ParEquipoPerdedorId = match.ParEquipoPerdedorNavigation.EqId,
+
+        //        }).ToListAsync();
+        //}
 
         // GET: api/Partidos/5
         [HttpGet("{id}")]

@@ -11,6 +11,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Security.Cryptography.X509Certificates;
 using System.Globalization;
+using System.Net;
 
 namespace LIDOM_MVC.Controllers
 {

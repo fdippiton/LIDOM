@@ -1,0 +1,55 @@
+﻿@model LIDOM_MVC.Models.Partido
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+
+<h4>Partido</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group d-none">
+                <label asp-for="ParId" class="control-label"></label>
+                <input asp-for="ParId" class="form-control" />
+                <span asp-validation-for="ParId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ParJuego" class="control-label"></label>
+                <select asp-for="ParJuego" asp-items="ViewBag.FecFechaPartidoList" class="form-control">
+                    <option>-- Selecciona la fecha en que se realizo partido --</option>
+                </select>
+                <span asp-validation-for="ParJuego" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ParEquipoGanador" class="control-label"></label>
+                <select asp-for="ParEquipoGanador" asp-items="ViewBag.EquipoGanadorList" class="form-control">
+                    <option>-- Selecciona el equipo ganador --</option>
+                </select>
+                <span asp-validation-for="ParEquipoGanador" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ParEquipoPerdedor" class="control-label"></label>
+                <select asp-for="ParEquipoPerdedor" asp-items="ViewBag.EquipoPerdedorList" class="form-control">
+                    <option>-- Selecciona el equipo perdedor --</option>
+                </select>
+                <span asp-validation-for="ParEquipoPerdedor" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

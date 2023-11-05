@@ -1,0 +1,39 @@
+﻿@model LIDOM_MVC.ViewModels.PartidoView
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Eliminar</h1>
+
+<h3>Estas seguro de que quieres eliminarlo?</h3>
+<div>
+    <h4>Partido</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FecFechaPartido)
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.FecFechaPartido.ToLongDateString()
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ParEquipoGanador)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ParEquipoGanador)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ParEquipoPerdedor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ParEquipoPerdedor)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Eliminar" class="btn btn-danger me-2" />
+        <a asp-action="Index">Volver a la lista</a>
+    </form>
+</div>

@@ -41,7 +41,7 @@ namespace LIDOM_API.Controllers
                     FecFechaPartido = match.CalFechaPartidoNavigation!.FecFechaPartido,
                     FecHora = match.CalFechaPartidoNavigation.FecHora,
                     TemNombre = match.CalFechaPartidoNavigation.FecTemporadaNavigation!.TemNombre,
-                    EquipoLocal = match.CalEquipoLocalNavigation.EqNombre,
+                    EquipoLocal = match.CalEquipoLocalNavigation!.EqNombre,
                     EquipoVisitante = match.CalEquipoVisitanteNavigation!.EqNombre,
                     EstNombre = match.CalEquipoLocalNavigation.EqEstadioNavigation!.EstNombre
                 }).ToListAsync();

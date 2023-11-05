@@ -1,0 +1,148 @@
+﻿@model IEnumerable<LIDOM_MVC.ViewModels.PartidoView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Registro de partidos</h1>
+
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn bg-primary text-white">Registrar resultado de partido</a>
+    </p>
+    
+}
+
+<div class="container p-5">
+
+    @foreach (var item in Model)
+    {
+        <div class="row d-flex justify-content-center mb-3" style="">
+
+            <div class="row p-0">
+                <div class="col-6 py-2 text-center" style="background-color: #0f34ad; border-radius: 5px 0px 0px 0px;">
+                    <div>
+                        <h6 style="margin: 0; color: White;"> Equipo Ganador</h6>
+                    </div>
+                    <div style="color: White; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
+                        @Html.DisplayFor(modelItem => item.ParEquipoGanador)
+                    </div>
+                </div>
+  @*               <div class="col-2 py-2 text-center" style="background-color: #2D2D2D; margin: auto 0;">
+                    <h1 style="margin:auto; color: #cfd0e2; font-family: 'Rubik', sans-serif; font-size: 25px; font-weight: 600; margin0">VS</h1>
+                </div> *@
+                <div class="col-6 py-2 text-center" style="background-color: #aa1100; border-radius: 0px 5px 0px 0px;">
+
+                    <div>
+                        <h6 style="margin: 0; color: White;"> Equipo Perdedor</h6>
+                    </div>
+                    <div style="color: White; font-family: 'Rubik', sans-serif; font-size: 20px; font-weight: 700; font-style:italic;">
+                        @Html.DisplayFor(modelItem => item.ParEquipoPerdedor)
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-between" style="font-family: 'Rubik', sans-serif; background-color: #ea781a; color: #aa1100; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600;">
+                <div class="col-6 text-center">
+                    @item.FecFechaPartido.ToLongDateString()
+                </div>
+                <div class="col-6 text-center">
+                    Hora: @item.FecHora.Hours:@item.FecHora.Minutes
+                </div>
+
+            </div>
+
+            <div class="row d-flex justify-content-between" style="background-color: #A2A9AF; border-radius: 0px 0px 5px 5px; font-weight: bold;">
+                <div class="col-6 text-center">
+                    <h6 style="margin: auto 0; font-size: 14px; padding: 3px 0;">@Html.DisplayFor(modelItem => item.EstNombre)</h6>
+                </div>
+                <div class="col-6 text-center">
+                    <h6 style="margin: auto 0; font-size: 14px; padding: 3px 0;">@Html.DisplayFor(modelItem => item.TemNombre)</h6>
+                </div>
+            </div>
+
+        </div>
+
+    }
+</div>
+
+
+@if (User.IsInRole("Admin"))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FecFechaPartido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FecHora)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParEquipoGanador)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParEquipoPerdedor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TemNombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EquipoLocal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EquipoVisitante)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstNombre)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParId)
+                </td>
+                <td>
+                    @item.FecFechaPartido.ToLongDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FecHora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParEquipoGanador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParEquipoPerdedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TemNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipoLocal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipoVisitante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstNombre)
+                </td>
+                    <td class="d-flex flex-nowrap">
+                        @Html.ActionLink("Editar", "Edit", new { id=item.ParId }, new { @class = "btn btn-outline-secondary me-1" }) 
+                        @Html.ActionLink("Detalles", "Details", new { id=item.ParId }, new { @class = "btn btn-outline-primary me-1" }) 
+                        @Html.ActionLink("Eliminar", "Delete", new { id=item.ParId }, new { @class = "btn btn-outline-danger me-1" })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+}
