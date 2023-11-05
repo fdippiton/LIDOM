@@ -1,0 +1,78 @@
+﻿@model LIDOM_MVC.Models.ResultadoEquipo
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>ResultadoEquipo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group d-none">
+                <label asp-for="ResId" class="control-label"></label>
+                <input asp-for="ResId" class="form-control" />
+                <span asp-validation-for="ResId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResPartido" class="control-label"></label>
+                <select asp-for="ResPartido" asp-items="ViewBag.PartidoList" class="form-control">
+                    <option>-- Selecciona el partido --</option>
+                </select>
+                <span asp-validation-for="ResPartido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResEquipo" class="control-label"></label>
+                <select asp-for="ResEquipo" asp-items="ViewBag.EquipoList" class="form-control">
+                    <option>-- Selecciona el equipo --</option>
+                </select>
+                <span asp-validation-for="ResEquipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResCarreras" class="control-label"></label>
+                <input asp-for="ResCarreras" class="form-control" />
+                <span asp-validation-for="ResCarreras" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResHits" class="control-label"></label>
+                <input asp-for="ResHits" class="form-control" />
+                <span asp-validation-for="ResHits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResErrores" class="control-label"></label>
+                <input asp-for="ResErrores" class="form-control" />
+                <span asp-validation-for="ResErrores" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResJuegoGanado" class="control-label"></label>
+                <input asp-for="ResJuegoGanado" class="form-control" />
+                <span asp-validation-for="ResJuegoGanado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResJuegoPerdido" class="control-label"></label>
+                <input asp-for="ResJuegoPerdido" class="form-control" />
+                <span asp-validation-for="ResJuegoPerdido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResJuegoEmpate" class="control-label"></label>
+                <input asp-for="ResJuegoEmpate" class="form-control" />
+                <span asp-validation-for="ResJuegoEmpate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

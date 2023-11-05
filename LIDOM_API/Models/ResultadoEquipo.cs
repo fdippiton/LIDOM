@@ -7,9 +7,9 @@ public partial class ResultadoEquipo
 {
     public int ResId { get; set; }
 
-    public int ResPartido { get; set; }
+    public int? ResPartido { get; set; }
 
-    public int ResEquipo { get; set; }
+    public int? ResEquipo { get; set; }
 
     public int ResCarreras { get; set; }
 
@@ -23,7 +23,7 @@ public partial class ResultadoEquipo
 
     public int ResJuegoEmpate { get; set; }
 
-    public virtual Equipo ResEquipoNavigation { get; set; } = null!;
+    public virtual Equipo? ResEquipoNavigation { get; set; } 
 
-    public virtual Partido ResPartidoNavigation { get; set; } = null!;
+    public virtual Partido? ResPartidoNavigation { get; set; } 
 }

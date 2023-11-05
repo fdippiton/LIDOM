@@ -1,0 +1,171 @@
+﻿@model IEnumerable<LIDOM_MVC.ViewModels.ResultadoEquipoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Resultados de partidos</h1>
+
+<p>
+    <a asp-action="Create" class="btn bg-primary text-white">Registrar resultados x equipo x partido</a>
+</p>
+
+
+<div class="row mb-5">
+    <table class="table table-bordered">
+        <thead style="background-color: #8a9eb5" class="text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResPartido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResPartidoFecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResEquipoNombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResCarreras)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResHits)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResErrores)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResJuegoGanado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResJuegoPerdido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResJuegoEmpate)
+                </th>
+            </tr>
+        </thead>
+        <tbody style="background-color: #a7a8b4;" class="text-center">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResPartido)
+                    </td>
+                    <td>
+                        @item.ResPartidoFecha.ToLongDateString()
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResEquipoNombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResCarreras)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResHits)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResErrores)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResJuegoGanado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResJuegoPerdido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResJuegoEmpate)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<table class="table">
+    <thead class="text-center">
+        <tr>
+ @*            <th>
+                @Html.DisplayNameFor(model => model.ResId)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.ResPartido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResPartidoFecha)
+            </th>
+@*             <th>
+                @Html.DisplayNameFor(model => model.ResEquipo)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.ResEquipoNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResCarreras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResHits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResErrores)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResJuegoGanado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResJuegoPerdido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResJuegoEmpate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+@foreach (var item in Model) {
+        <tr>
+@*             <td>
+                @Html.DisplayFor(modelItem => item.ResId)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.ResPartido)
+            </td>
+            <td>
+                @item.ResPartidoFecha.ToLongDateString()
+            </td>
+@*             <td>
+                @Html.DisplayFor(modelItem => item.ResEquipo)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.ResEquipoNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResCarreras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResHits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResErrores)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResJuegoGanado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResJuegoPerdido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResJuegoEmpate)
+            </td>
+                <td class="d-flex flex-nowrap">
+                    @Html.ActionLink("Editar", "Edit", new { id=item.ResId }, new { @class = "btn btn-outline-secondary me-1" })
+                    @Html.ActionLink("Detalles", "Details", new { id=item.ResId }, new { @class = "btn btn-outline-primary me-1" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id=item.ResId }, new { @class = "btn btn-outline-danger me-1" })
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

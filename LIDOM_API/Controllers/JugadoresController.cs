@@ -28,7 +28,7 @@ namespace LIDOM_API.Controllers
           {
               return NotFound();
           }
-            return await _context.Jugadores.ToListAsync();
+            return await _context.Jugadores.OrderBy(g => g.JugEquipo).ThenBy(g => g.JugEdad).ToListAsync();
         }
 
         // GET: api/Jugadores/5

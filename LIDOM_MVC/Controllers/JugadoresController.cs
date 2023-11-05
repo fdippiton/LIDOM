@@ -58,6 +58,8 @@ namespace LIDOM_MVC.Controllers
                 jugadoresViewModel.Add(customJugador);
             };
 
+            //var grupoJugadores = jugadoresViewModel.GroupBy(j => j.JugNumCamiseta);
+
             return View(jugadoresViewModel);
         }
 

@@ -28,7 +28,7 @@ namespace LIDOM_API.Controllers
           {
               return NotFound();
           }
-            return await _context.FechaPartidos.ToListAsync();
+            return await _context.FechaPartidos.OrderBy(g => g.FecFechaPartido).ThenBy(g => g.FecTemporada).ToListAsync();
         }
 
         // GET: api/FechaPartidos/5

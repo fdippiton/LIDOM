@@ -78,7 +78,7 @@
                             <span> @Html.ActionLink("Editar", "Edit", new { id=item.EqId }, new { @class = "btn btn-outline-secondary me-1" })</span>
                         }
 
-                        <span>   @Html.ActionLink("Ver equipo", "Details", new { id=item.EqId }, new { @class = "btn btn-outline-primary me-1" })</span>
+                        <span>   @Html.ActionLink("Perfil", "Details", new { id=item.EqId }, new { @class = "btn btn-outline-primary me-1" })</span>
 
                         @if (User.IsInRole("Admin"))
                         {

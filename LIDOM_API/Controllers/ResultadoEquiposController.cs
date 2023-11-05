@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LIDOM_API.Models;
+using LIDOM_API.ViewModels;
 
 namespace LIDOM_API.Controllers
 {
@@ -22,14 +23,47 @@ namespace LIDOM_API.Controllers
 
         // GET: api/ResultadoEquipos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResultadoEquipo>>> GetResultadoEquipos()
+        public async Task<ActionResult<IEnumerable<ResultadoEquipoViewModel>>> GetResultadoEquipos()
         {
-          if (_context.ResultadoEquipos == null)
-          {
-              return NotFound();
-          }
-            return await _context.ResultadoEquipos.ToListAsync();
+            if (_context.ResultadoEquipos == null)
+            {
+                return NotFound();
+            }
+            return await _context.ResultadoEquipos
+                .Include(x => x.ResEquipoNavigation)
+                .Include(x => x.ResPartidoNavigation)
+                .Include(x => x.ResPartidoNavigation.ParEquipoGanadorNavigation)
+                .Include(x => x.ResPartidoNavigation.ParEquipoPerdedorNavigation)
+                .Include(x => x.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation!.FecTemporadaNavigation)
+                .Include(x => x.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation)
+                .OrderBy(g => g.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation!.FecFechaPartido)
+                .Select(match => new ResultadoEquipoViewModel
+                {
+                    ResId = match.ResId,
+                    ResPartido = match.ResPartidoNavigation.ParId,
+                    ResPartidoFecha = match.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation!.FecFechaPartido,
+                    ResEquipo = match.ResEquipoNavigation.EqId,
+                    ResEquipoNombre = match.ResEquipoNavigation.EqNombre,
+                    ResCarreras = match.ResCarreras,
+                    ResHits = match.ResHits,
+                    ResErrores = match.ResErrores,
+                    ResJuegoGanado = match.ResJuegoGanado,
+                    ResJuegoPerdido = match.ResJuegoGanado,
+                    ResJuegoEmpate = match.ResJuegoEmpate,
+
+                }).ToListAsync();
         }
+
+        // GET: api/ResultadoEquipos
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<ResultadoEquipo>>> GetResultadoEquipos()
+        //{
+        //    if (_context.ResultadoEquipos == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return await _context.ResultadoEquipos.ToListAsync();
+        //}
 
         // GET: api/ResultadoEquipos/5
         [HttpGet("{id}")]
