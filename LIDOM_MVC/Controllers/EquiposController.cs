@@ -70,6 +70,7 @@ namespace LIDOM_MVC.Controllers
             Estadio estadio = new Estadio();
             List<Equipo> equipos = new List<Equipo>();
             List<Estadio> estadios = new List<Estadio>();
+            List<Jugadore> jugadores = new List<Jugadore>();
             EqEstadioNombreViewModel eqEstadioNombreViewModel = new EqEstadioNombreViewModel();
 
             string jsonEquiposResponse = httpClient.GetStringAsync($"{baseApiUrl}/equipos").Result;
@@ -77,6 +78,9 @@ namespace LIDOM_MVC.Controllers
 
             string jsonEstadiosResponse = httpClient.GetStringAsync($"{baseApiUrl}/estadios").Result;
             estadios = JsonConvert.DeserializeObject<List<Estadio>>(jsonEstadiosResponse) ?? new List<Estadio>();
+
+            string jsonJugadoresResponse = httpClient.GetStringAsync($"{baseApiUrl}/jugadores").Result;
+            jugadores = JsonConvert.DeserializeObject<List<Jugadore>>(jsonJugadoresResponse) ?? new List<Jugadore>();
 
             // Por ejemplo, podrías filtrar equipos y estadios según el ID:
             equipo = equipos.FirstOrDefault(e => e.EqId == id)!;
@@ -90,7 +94,9 @@ namespace LIDOM_MVC.Controllers
             eqEstadioNombreViewModel.EqEstatus = equipo.EqEstatus;
             eqEstadioNombreViewModel.EqNombre = equipo.EqNombre;
 
-            return View(eqEstadioNombreViewModel);
+            var jugadoress = jugadores.Where(x => x.JugEquipo == eqEstadioNombreViewModel.EqId).ToList();
+
+            return View((eqEstadioNombreViewModel, jugadoress));
         }
 
         // GET: EquiposController/Create
@@ -224,7 +230,7 @@ namespace LIDOM_MVC.Controllers
 
         // GET: EquiposController/Delete/5
         [HttpGet]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
 
@@ -247,23 +253,40 @@ namespace LIDOM_MVC.Controllers
         // POST: EquiposController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
 
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(baseApiUrl);
-                var deleteTask = client.DeleteAsync($"{baseApiUrl}/equipos/" + id.ToString());
-                deleteTask.Wait();
-                var result = deleteTask.Result;
-                if (result.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    return RedirectToAction("Index");
+                    client.BaseAddress = new Uri(baseApiUrl);
+                    var deleteTask = client.DeleteAsync($"{baseApiUrl}/equipos/" + id.ToString());
+                    deleteTask.Wait();
+                    var result = deleteTask.Result;
+                   
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error de conexión: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error al deserializar los datos: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, "Error: " + ex.Message);
             }
             return RedirectToAction("Index");
         }
 
     }
 }
+

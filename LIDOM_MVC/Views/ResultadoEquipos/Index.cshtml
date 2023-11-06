@@ -11,10 +11,10 @@
     <a asp-action="Create" class="btn bg-primary text-white">Registrar resultados x equipo x partido</a>
 </p>
 
-
+@* #ea781a; color: #aa1100; *@
 <div class="row mb-5">
     <table class="table table-bordered">
-        <thead style="background-color: #8a9eb5" class="text-center">
+        <thead style="background-color: #ea781a; color: #aa1100;" class="text-center">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.ResPartido)
@@ -45,7 +45,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody style="background-color: #a7a8b4;" class="text-center">
+        <tbody style="background-color: #cfd0e2; color: #0f34ad; font-weight:600" class="text-center">
             @foreach (var item in Model)
             {
                 <tr>

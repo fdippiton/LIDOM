@@ -1,4 +1,4 @@
-﻿@model LIDOM_MVC.ViewModels.EqEstadioNombreViewModel
+﻿@model (LIDOM_MVC.ViewModels.EqEstadioNombreViewModel Equipo,  List<Jugadore> jugadoress)
 
 @{
     ViewData["Title"] = "Details";
@@ -10,62 +10,102 @@
 <div>
     <div class="row d-flex align-items-center justify-content-center">
         <div class="col-2">
-            <img style="width: 150px; height: 150px;" src="https://uxwing.com/wp-content/themes/uxwing/download/sport-and-awards/ball-baseball-icon.png" />
+            <img style="width: 150px; height: 150px;" src="https://cdn.pixabay.com/photo/2014/04/02/16/24/baseball-307165_1280.png" />
         </div>
         <div class="col-4">
-            <h1 class="text-primary">@Html.DisplayFor(model => model.EqNombre)</h1>
+            <h1 class="text-primary">@Html.DisplayFor(model => model.Equipo.EqNombre)</h1>
         </div>
+
     </div>
     <hr />
     <dl class="row">
-        @if (User.IsInRole("Admin"))
-        {
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.EqId)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.EqId)
-            </dd>            
-        }
-        <dt class = "col-sm-2">
+@*         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EqNombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EqNombre)
+        </dt> *@
+        <dd class = "col-sm-10" style="font-size: 25px; font-weight:bold;">
+            @Html.DisplayFor(model => model.Equipo.EqNombre)
         </dd>
-        <dt class = "col-sm-2">
+   @*      <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EqDescripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EqDescripcion)
+        </dt> *@
+        <dd class="col-sm-10" style="font-size: 22px; font-weight:bold;">
+            @Html.DisplayFor(model => model.Equipo.EqDescripcion)
         </dd>
-        <dt class = "col-sm-2">
+@*         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EqCiudad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EqCiudad)
+        </dt> *@
+        <dd class="col-sm-10" style="font-size: 22px; font-weight:bold;">
+            @Html.DisplayFor(model => model.Equipo.EqCiudad)
         </dd>
-        <dt class = "col-sm-2">
+@*         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EqEstadio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EqEstadio)
+        </dt> *@
+        <dd class="col-sm-10" style="font-size: 22px; font-weight:bold;">
+            @Html.DisplayFor(model => model.Equipo.EqEstadio)
         </dd>
-        @if (User.IsInRole("Admin"))
-        {
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.EqEstatus)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.EqEstatus)
-            </dd>
-        }
     </dl>
 </div>
 <div>
     @if (User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Editar", "Edit", new { id = Model.EqId }, new { @class = "btn btn-outline-secondary me-2" })  
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Equipo.EqId }, new { @class = "btn btn-outline-secondary me-2" })
     }
     <a asp-action="Index">Volver a la lista</a>
 </div>
+
+<div class="row mt-5">
+            <h2 class="p-0 mb-3 text-black">Jugadores</h2>
+    <div class="col-10">
+        <div class="row">
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Apellidos
+                        </th>
+                        <th>
+                            Edad
+                        </th>
+                        <th>
+                            Posicion
+                        </th>
+                        <th>
+                            Numero en camiseta
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.jugadoress)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JugNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JugApellidos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JugEdad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JugPosicion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JugNumCamiseta)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-2 d-flex justify-content-center">
+        <img class="" style="width: 150px; height: 150px;" src="https://uxwing.com/wp-content/themes/uxwing/download/sport-and-awards/ball-baseball-icon.png" />
+    </div>
+</div>
+
+

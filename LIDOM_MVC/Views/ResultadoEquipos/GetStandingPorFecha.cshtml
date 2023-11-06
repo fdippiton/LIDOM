@@ -5,10 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Standing por dia</h1>
+<h1>Standing</h1>
 
 @{
-    var gruposPorFecha = Model.GroupBy(item => item.Fecha).OrderBy(grupo => grupo.Key);
+    // var gruposPorFecha = Model.GroupBy(item => item.Fecha).OrderBy(grupo => grupo.Key);
+    var gruposPorFecha = Model.GroupBy(item => item.Fecha);
 }
 
 <table class="table">
@@ -16,7 +17,7 @@
 @foreach (var grupo in gruposPorFecha)
 {
     <tr>
-            <td colspan="9" class="text-center" style="color: #0c166d; font-weight: bold;">Fecha: @grupo.Key.ToShortDateString()</td>
+            <td colspan="9" class="text-center" style="background-color: #ea781a; color: #aa1100; font-weight: bold; border: 5px solid #0f34ad;">Fecha: @grupo.Key.ToShortDateString()</td>
     </tr>
 @*         <thead class="table-dark">
         <tr>
@@ -49,7 +50,7 @@
 
     foreach (var item in grupo)
     {
-            <tbody style="background-color: #8a9eb5; font-weight: 500;">
+            <tbody style="background-color: #cfd0e2; color: #0f34ad; font-weight: 500;">
 
             <tr>
                 <td>
@@ -57,31 +58,31 @@
                     @Html.DisplayFor(modelItem => item.EquipoId)
                 </td>
                 <td>
-                    <div>Equipo </div>
+                        <div style="color: black;">Equipo </div>
                     @Html.DisplayFor(modelItem => item.EquipoNombre)
                 </td>
                 <td>
-                    <div>Juegos Ganados</div>
+                        <div style="color: black;">Juegos Ganados</div>
                     @Html.DisplayFor(modelItem => item.JuegosGanados)
                 </td>
                 <td>
-                        <div>Juegos perdidos</div>
+                        <div style="color: black;">Juegos perdidos</div>
                     @Html.DisplayFor(modelItem => item.JuegosPerdidos)
                 </td>
                 <td>
-                        <div>Juegos Empatados</div>
+                        <div style="color: black;">Juegos Empatados</div>
                     @Html.DisplayFor(modelItem => item.JuegosEmpatados)
                 </td>
                 <td>
-                        <div>Carreras</div>
+                        <div style="color: black;">Carreras</div>
                     @Html.DisplayFor(modelItem => item.Carreras)
                 </td>
                 <td>
-                        <div>Hits</div>
+                        <div style="color: black;">Hits</div>
                     @Html.DisplayFor(modelItem => item.Hits)
                 </td>
                 <td>
-                        <div>Errores</div>
+                        <div style="color: black;">Errores</div>
                     @Html.DisplayFor(modelItem => item.Errores)
                 </td>
             </tr>
