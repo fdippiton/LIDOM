@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Resultados de partidos</h1>
+<h2 class="mb-3">Resultados de partidos</h2>
+
 
 @if (User.IsInRole("Admin"))
 {
@@ -15,7 +16,8 @@
     
 }
 
-@* #ea781a; color: #aa1100; *@
+<h6 style="color: #e0250c; font-size: 13px;">* Resultados de los equipos en los partidos realizados.</h6>
+
 <div class="row mb-5">
     <table class="table table-bordered">
         <thead style="background-color: #ea781a; color: #aa1100;" class="text-center">

@@ -480,7 +480,7 @@ namespace LIDOM_MVC.Controllers
                             var PromedioJuegoPerdido = grupo.Average(e => (decimal)e.ResJuegoPerdido);
                             var PromedioJuegoEmpate = grupo.Average(e => (decimal)e.ResJuegoEmpate);
 
-                            return new Promedio
+                            return new PromedioViewModel
                             {
                                 EquipoId = EquipoId,
                                 EquipoNombre = EquipoNombre,

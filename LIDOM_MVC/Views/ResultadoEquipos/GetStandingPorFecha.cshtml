@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Standing</h1>
+<h2 class="mb-3">Standing</h2>
+<h6 style="color: #e0250c; font-size: 13px;">* Standing ordenado por fecha y por juegos ganados por equipo.</h6>
 
 @{
     // var gruposPorFecha = Model.GroupBy(item => item.Fecha).OrderBy(grupo => grupo.Key);
@@ -17,7 +18,7 @@
 @foreach (var grupo in gruposPorFecha)
 {
     <tr>
-            <td colspan="9" class="text-center" style="background-color: #ea781a; color: #aa1100; font-weight: bold; border: 5px solid #0f34ad;">Fecha: @grupo.Key.ToShortDateString()</td>
+            <td colspan="9" class="text-center p-0" style="background-color: #ea781a; color: #aa1100; font-weight: bold;">Fecha: @grupo.Key.ToShortDateString()</td>
     </tr>
 @*         <thead class="table-dark">
         <tr>

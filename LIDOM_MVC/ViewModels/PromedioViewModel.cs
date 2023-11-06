@@ -2,7 +2,7 @@
 
 namespace LIDOM_MVC.ViewModels
 {
-    public class Promedio
+    public class PromedioViewModel
     {
         [DisplayName("Id de equipo")]
         public int EquipoId { get; set; }
@@ -11,22 +11,22 @@ namespace LIDOM_MVC.ViewModels
         public string EquipoNombre { get; set; }
         
         
-        [DisplayName("Promedio de carreras")]
+        [DisplayName("Promedio de Carreras")]
         public decimal PromedioCarreras { get; set; }
         
-        [DisplayName("Promedio de hits")]
+        [DisplayName("Promedio de Hits")]
         public decimal PromedioHits { get; set; }
         
-        [DisplayName("Promedio de errores")]
+        [DisplayName("Promedio de Errores")]
         public decimal PromedioErrores { get; set; }
        
-        [DisplayName("Promedio de juegos ganados")]
+        [DisplayName("Promedio de Juegos Ganados")]
         public decimal PromedioJuegoGanado { get; set; }
         
-        [DisplayName("Promedio de juegos perdidos")]
+        [DisplayName("Promedio de Juegos Perdidos")]
         public decimal PromedioJuegoPerdido { get; set; }
         
-        [DisplayName("Promedio de juegos empatados")]
+        [DisplayName("Promedio de Juegos Empatados")]
         public decimal PromedioJuegoEmpate { get; set; }
     }
 }

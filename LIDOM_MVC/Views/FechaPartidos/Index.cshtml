@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Fecha de Partidos</h1>
+<h2>Fecha de Partidos</h2>
 
 @if (User.IsInRole("Admin"))
 {
@@ -40,11 +40,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FecHora)
             </td>
-            <td>
-                    @Html.ActionLink("Editar", "Edit", new { id=item.FecId }, new { @class = "btn btn-outline-secondary me-1" }) 
-                    @Html.ActionLink("Detalles", "Details", new { id=item.FecId }, new { @class = "btn btn-outline-primary me-1" }) 
-                    @Html.ActionLink("Eliminar", "Delete", new { id=item.FecId }, new { @class = "btn btn-outline-danger me-1" })
-            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                        @Html.ActionLink("Editar", "Edit", new { id=item.FecId }, new { @class = "btn btn-outline-secondary me-1" }) 
+                        @Html.ActionLink("Detalles", "Details", new { id=item.FecId }, new { @class = "btn btn-outline-primary me-1" }) 
+                        @Html.ActionLink("Eliminar", "Delete", new { id=item.FecId }, new { @class = "btn btn-outline-danger me-1" })
+                </td>
+                    
+            }
         </tr>
 }
     </tbody>

@@ -5,10 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Promedios de equipos</h1>
+<h2 class="mb-3">Promedios de equipos</h2>
+<h6 style="color: #e0250c; font-size: 13px;">* Promedios de cada equipo.</h6>
 
-<table class="table table-striped table-bordered table-hover">
-    <thead>
+<table class="table  table-bordered table-hover ">
+    <thead style="background-color: #ea781a; color: #aa1100; font-weight: bold;">
         <tr>
             <th>Id Equipo</th>
             <th>Equipo</th>
@@ -20,7 +21,7 @@
             <th>Promedio Juego Empate</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="background-color: #cfd0e2; color: #0f34ad; font-weight:600">
         @foreach (var promedio in ViewBag.PromediosPorEquipo)
         {
             <tr>
