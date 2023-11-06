@@ -1,0 +1,92 @@
+﻿@model IEnumerable<LIDOM_MVC.ViewModels.StandingEquipoViewModel>
+
+@{
+    ViewData["Title"] = "GetStandingPorFecha";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Standing por dia</h1>
+
+@{
+    var gruposPorFecha = Model.GroupBy(item => item.Fecha).OrderBy(grupo => grupo.Key);
+}
+
+<table class="table">
+
+@foreach (var grupo in gruposPorFecha)
+{
+    <tr>
+            <td colspan="9" class="text-center" style="color: #0c166d; font-weight: bold;">Fecha: @grupo.Key.ToShortDateString()</td>
+    </tr>
+@*         <thead class="table-dark">
+        <tr>
+            <td>
+               Equipo Id
+            </td>
+            <td>
+                Equipo
+            </td>
+            <td>
+                Juegos Jugados
+            </td>
+            <td>
+               Juegos Perdidos
+            </td>
+            <td>
+                Juegos Empatados
+            </td>
+            <td>
+               Carreras
+            </td>
+            <td>
+               Hits
+            </td>
+            <td>
+               Errores
+            </td>
+        </tr>
+    </thead> *@
+
+    foreach (var item in grupo)
+    {
+            <tbody style="background-color: #8a9eb5; font-weight: 500;">
+
+            <tr>
+                <td>
+                    <div style="color: black;">Equipo Id</div>
+                    @Html.DisplayFor(modelItem => item.EquipoId)
+                </td>
+                <td>
+                    <div>Equipo </div>
+                    @Html.DisplayFor(modelItem => item.EquipoNombre)
+                </td>
+                <td>
+                    <div>Juegos Ganados</div>
+                    @Html.DisplayFor(modelItem => item.JuegosGanados)
+                </td>
+                <td>
+                        <div>Juegos perdidos</div>
+                    @Html.DisplayFor(modelItem => item.JuegosPerdidos)
+                </td>
+                <td>
+                        <div>Juegos Empatados</div>
+                    @Html.DisplayFor(modelItem => item.JuegosEmpatados)
+                </td>
+                <td>
+                        <div>Carreras</div>
+                    @Html.DisplayFor(modelItem => item.Carreras)
+                </td>
+                <td>
+                        <div>Hits</div>
+                    @Html.DisplayFor(modelItem => item.Hits)
+                </td>
+                <td>
+                        <div>Errores</div>
+                    @Html.DisplayFor(modelItem => item.Errores)
+                </td>
+            </tr>
+
+        </tbody>
+    }
+}
+</table>

@@ -36,7 +36,7 @@ namespace LIDOM_API.Controllers
                 .Include(x => x.ResPartidoNavigation.ParEquipoPerdedorNavigation)
                 .Include(x => x.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation!.FecTemporadaNavigation)
                 .Include(x => x.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation)
-                .OrderBy(g => g.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation!.FecFechaPartido)
+                .OrderBy(x => x.ResPartidoNavigation.ParJuegoNavigation!.CalFechaPartidoNavigation!.FecFechaPartido)
                 .Select(match => new ResultadoEquipoViewModel
                 {
                     ResId = match.ResId,
@@ -48,11 +48,37 @@ namespace LIDOM_API.Controllers
                     ResHits = match.ResHits,
                     ResErrores = match.ResErrores,
                     ResJuegoGanado = match.ResJuegoGanado,
-                    ResJuegoPerdido = match.ResJuegoGanado,
+                    ResJuegoPerdido = match.ResJuegoPerdido,
                     ResJuegoEmpate = match.ResJuegoEmpate,
 
                 }).ToListAsync();
         }
+
+
+        //[HttpGet]
+        //public ActionResult<IEnumerable<StandingViewModel>> GetResultados()
+        //{
+        //    var resultados = _context.ResultadoEquipos
+        //        .Include(re => re.ResEquipoNavigation) // Incluye la navegación a la entidad Equipo
+        //        .Include(re => re.ResPartidoNavigation) // Incluye la navegación a la entidad Partido
+        //            .ThenInclude(p => p.ParJuegoNavigation) // Incluye la navegación a la entidad CalendarioJuego
+        //                .ThenInclude(cj => cj.CalFechaPartidoNavigation) // Incluye la navegación a la entidad FechaPartido
+        //        .GroupBy(re => new { re.ResEquipo, re.ResPartidoNavigation!.ParJuegoNavigation!.CalFechaPartidoNavigation!.FecFechaPartido })
+        //        .Select(g => new StandingViewModel
+        //        {
+        //            FechaDelJuego = g.Key.FecFechaPartido,
+        //            NombreDelEquipo = g.FirstOrDefault()!.ResEquipoNavigation!.EqNombre,
+        //            JuegosGanados = g.Sum(re => re.ResJuegoGanado),
+        //            JuegosPerdidos = g.Sum(re => re.ResJuegoPerdido),
+        //            JuegosEmpatados = g.Sum(re => re.ResJuegoEmpate),
+        //            Carreras = g.Sum(re => re.ResCarreras),
+        //            Hits = g.Sum(re => re.ResHits),
+        //            Errores = g.Sum(re => re.ResErrores)
+        //        })
+        //        .ToList();
+
+        //    return Ok(resultados);
+        //}
 
         // GET: api/ResultadoEquipos
         //[HttpGet]

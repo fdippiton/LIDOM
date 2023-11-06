@@ -333,5 +333,73 @@ namespace LIDOM_MVC.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ResultadoEquipoViewModel>>> GetStandingPorFecha()
+        {
+            // Define la URL de la API externa
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+
+            using (var httpClient = new HttpClient())
+            {
+                try
+                {
+                    // Realiza una solicitud GET a la API externa
+                    HttpResponseMessage response = await httpClient.GetAsync($"{baseApiUrl}/resultadoEquipos/");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Lee y deserializa la respuesta en una lista de ResultadoEquipoViewModel
+                        var content = await response.Content.ReadAsStringAsync();
+                        var resultados = JsonConvert.DeserializeObject<List<ResultadoEquipoViewModel>>(content);
+
+                        // Agrupa los resultados por fecha y calcula el standing
+                        var standingPorFecha = resultados
+                            .GroupBy(x => new { x.ResPartidoFecha, x.ResEquipo })
+                            .Select(grupo =>
+                            {
+                                var fecha = grupo.Key.ResPartidoFecha;
+                                var equipoId = grupo.Key.ResEquipo;
+                                var equipoNombre = grupo.First().ResEquipoNombre;
+                                var carreras = grupo.Sum(x => x.ResCarreras);
+                                var hits = grupo.Sum(x => x.ResHits);
+                                var errores = grupo.Sum(x => x.ResErrores);
+                                var juegosGanados = grupo.Sum(x => x.ResJuegoGanado);
+                                var juegosPerdidos = grupo.Sum(x => x.ResJuegoPerdido);
+                                var juegosEmpatados = grupo.Sum(x => x.ResJuegoEmpate);
+
+                                return new StandingEquipoViewModel
+                                {
+                                    EquipoId = equipoId,
+                                    Fecha = fecha,
+                                    EquipoNombre = equipoNombre,
+                                    JuegosGanados = juegosGanados,
+                                    JuegosPerdidos = juegosPerdidos,
+                                    JuegosEmpatados = juegosEmpatados,
+                                    Carreras = carreras,
+                                    Hits = hits,
+                                    Errores = errores,
+                                };
+                            })
+                            .ToList();
+
+                        return View(standingPorFecha);
+                    }
+                    else
+                    {
+                        // Maneja errores de solicitud HTTP
+                        return StatusCode((int)response.StatusCode);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Maneja excepciones
+                    return BadRequest("Error al realizar la solicitud: " + ex.Message);
+                }
+            }
+        }
+
+
     }
 }
