@@ -33,11 +33,50 @@ namespace LIDOM_MVC.Controllers
                 {
                     var Response = Res.Content.ReadAsStringAsync().Result;
                     Info = JsonConvert.DeserializeObject<List<ResultadoEquipo>>(Response);
+
+                    // Calcular promedios por equipo
+                    var promediosPorEquipo = Info
+                        .GroupBy(equipo => equipo.ResEquipo)
+                        .Select(grupo => new
+                        {
+                            EquipoId = grupo.Key,
+                            PromedioCarreras = grupo.Average(e => (decimal)e.ResCarreras),
+                            PromedioHits = grupo.Average(e => (decimal)e.ResHits),
+                            PromedioErrores = grupo.Average(e => (decimal)e.ResErrores),
+                            PromedioJuegoGanado = grupo.Average(e => (decimal)e.ResJuegoGanado),
+                            PromedioJuegoPerdido = grupo.Average(e => (decimal)e.ResJuegoPerdido),
+                            PromedioJuegoEmpate = grupo.Average(e => (decimal)e.ResJuegoEmpate)
+                        })
+                        .ToList();
+
+                    ViewBag.PromediosPorEquipo = promediosPorEquipo;
+
+                    // Aquí puedes usar los promediosPorEquipo como necesites
                 }
 
                 return View(Info);
             }
         }
+        //public async Task<ActionResult> Index()
+        //{
+        //    string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+        //    List<ResultadoEquipo> Info = new List<ResultadoEquipo>();
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(baseApiUrl);
+        //        client.DefaultRequestHeaders.Clear();
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        HttpResponseMessage Res = await client.GetAsync("api/ResultadoEquipos");
+        //        if (Res.IsSuccessStatusCode)
+        //        {
+        //            var Response = Res.Content.ReadAsStringAsync().Result;
+        //            Info = JsonConvert.DeserializeObject<List<ResultadoEquipo>>(Response);
+        //        }
+
+        //        return View(Info);
+        //    }
+        //}
+
 
         public ActionResult Create()
         {
