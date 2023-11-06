@@ -20,17 +20,15 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PosNombre)
-            </td>
-            <td>
-   @*              @Html.ActionLink("Edit", "Edit", new { id=item.PosId }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.PosId }) | *@
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PosNombre)
+                </td>
+                <td>
                     @Html.ActionLink("Eliminar", "Delete", new { id=item.PosId }, new { @class = "btn btn-outline-danger me-1" })
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

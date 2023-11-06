@@ -26,6 +26,7 @@
         <div class="row d-flex justify-content-center mb-3" style="">
 
             <div class="row p-0">
+                
                 <div class="col-6 py-2 text-center" style="background-color: #0f34ad; border-radius: 5px 0px 0px 0px;">
                     <div>
                         <h6 style="margin: 0; color: White;"> Equipo Ganador</h6>
@@ -34,9 +35,7 @@
                         @Html.DisplayFor(modelItem => item.ParEquipoGanador)
                     </div>
                 </div>
-  @*               <div class="col-2 py-2 text-center" style="background-color: #2D2D2D; margin: auto 0;">
-                    <h1 style="margin:auto; color: #cfd0e2; font-family: 'Rubik', sans-serif; font-size: 25px; font-weight: 600; margin0">VS</h1>
-                </div> *@
+  
                 <div class="col-6 py-2 text-center" style="background-color: #aa1100; border-radius: 0px 5px 0px 0px;">
 
                     <div>
@@ -110,41 +109,41 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParId)
-                </td>
-                <td>
-                    @item.FecFechaPartido.ToLongDateString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FecHora)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParEquipoGanador)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParEquipoPerdedor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TemNombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EquipoLocal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EquipoVisitante)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EstNombre)
-                </td>
-                    <td class="d-flex flex-nowrap">
-                        @Html.ActionLink("Editar", "Edit", new { id=item.ParId }, new { @class = "btn btn-outline-secondary me-1" }) 
-                        @Html.ActionLink("Eliminar", "Delete", new { id=item.ParId }, new { @class = "btn btn-outline-danger me-1" })
-                </td>
-            </tr>
-    }
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParId)
+                    </td>
+                    <td>
+                        @item.FecFechaPartido.ToLongDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FecHora)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParEquipoGanador)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParEquipoPerdedor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TemNombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipoLocal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipoVisitante)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstNombre)
+                    </td>
+                        <td class="d-flex flex-nowrap">
+                            @Html.ActionLink("Editar", "Edit", new { id=item.ParId }, new { @class = "btn btn-outline-secondary me-1" }) 
+                            @Html.ActionLink("Eliminar", "Delete", new { id=item.ParId }, new { @class = "btn btn-outline-danger me-1" })
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }

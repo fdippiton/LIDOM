@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LIDOM_MVC.Controllers
 {
@@ -30,30 +31,18 @@ namespace LIDOM_MVC.Controllers
 
             try
             {
-
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(baseApiUrl);
-                    // Establece la URL de tu Web API
-
-
-                    // Establece el tipo de contenido que esperas en la respuesta
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    // Realiza la solicitud HTTP para llamar al endpoint de la Web API
                     HttpResponseMessage response = await client.GetAsync($"{baseApiUrl}/resultadoEquipos");
 
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Procesa la respuesta JSON
                         var data = await response.Content.ReadAsStringAsync();
-
-                        // Deserializa los datos JSON a objetos C# utilizando un marco como Newtonsoft.Json
                         resultadoEquipoViewModel = JsonConvert.DeserializeObject<List<ResultadoEquipoViewModel>>(data) ?? new List<ResultadoEquipoViewModel>();
-                        //calendarioViewModel = JsonConvert.DeserializeObject<CalendarioViewModel[]>(data);
-
-
                     }
                     else
                     {
@@ -118,7 +107,6 @@ namespace LIDOM_MVC.Controllers
                         var data = await response.Content.ReadAsStringAsync();
                         resultadoEquipoViewModels = JsonConvert.DeserializeObject<List<ResultadoEquipoViewModel>>(data) ?? new List<ResultadoEquipoViewModel>();
 
-                        //var fechasPartido = partidoViewModel.Select(p => p.FecFechaPartido).ToList();
                         var numPartidoList = resultadoEquipoViewModels.Select(p => new SelectListItem
                         {
                             Text = p.ResPartido.ToString(), // Texto visible en el DropDownList
@@ -345,16 +333,13 @@ namespace LIDOM_MVC.Controllers
             {
                 try
                 {
-                    // Realiza una solicitud GET a la API externa
                     HttpResponseMessage response = await httpClient.GetAsync($"{baseApiUrl}/resultadoEquipos/");
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Lee y deserializa la respuesta en una lista de ResultadoEquipoViewModel
                         var content = await response.Content.ReadAsStringAsync();
                         var resultados = JsonConvert.DeserializeObject<List<ResultadoEquipoViewModel>>(content);
 
-                        // Agrupa los resultados por fecha y calcula el standing
                         var standingPorFecha = resultados
                             .GroupBy(x => new { x.ResPartidoFecha, x.ResEquipo })
                             .Select(grupo =>
@@ -413,16 +398,13 @@ namespace LIDOM_MVC.Controllers
             {
                 try
                 {
-                    // Realiza una solicitud GET a la API externa
                     HttpResponseMessage response = await httpClient.GetAsync($"{baseApiUrl}/resultadoEquipos/");
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Lee y deserializa la respuesta en una lista de ResultadoEquipoViewModel
                         var content = await response.Content.ReadAsStringAsync();
                         var resultados = JsonConvert.DeserializeObject<List<ResultadoEquipoViewModel>>(content);
 
-                        // Agrupa los resultados por fecha y calcula el standing
                         var estadisticas = resultados
                             .GroupBy(x => x.ResEquipo)
                             .Select(grupo =>
@@ -457,14 +439,65 @@ namespace LIDOM_MVC.Controllers
                     else
                     {
                         // Maneja errores de solicitud HTTP
-                        return StatusCode((int)response.StatusCode);
+                        return View("Error");
                     }
                 }
                 catch (Exception ex)
                 {
                     // Maneja excepciones
-                    return BadRequest("Error al realizar la solicitud: " + ex.Message);
+                    return View("Error");
                 }
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ResultadoEquipoViewModel>>> PromedioEquipos()
+        {
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            List<ResultadoEquipoViewModel> Info = new List<ResultadoEquipoViewModel>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseApiUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/ResultadoEquipos");
+                if (Res.IsSuccessStatusCode)
+                {
+                    var content = await Res.Content.ReadAsStringAsync();
+                    Info = JsonConvert.DeserializeObject<List<ResultadoEquipoViewModel>>(content)!;
+
+
+                    var promedios = Info
+                        .GroupBy(x => x.ResEquipo)
+                        .Select(grupo =>
+                        {
+                            var EquipoId = grupo.Key;
+                            var EquipoNombre = grupo.First().ResEquipoNombre;
+                            var PromedioCarreras = grupo.Average(e => (decimal)e.ResCarreras);
+                            var PromedioHits = grupo.Average(e => (decimal)e.ResHits);
+                            var PromedioErrores = grupo.Average(e => (decimal)e.ResErrores);
+                            var PromedioJuegoGanado = grupo.Average(e => (decimal)e.ResJuegoGanado);
+                            var PromedioJuegoPerdido = grupo.Average(e => (decimal)e.ResJuegoPerdido);
+                            var PromedioJuegoEmpate = grupo.Average(e => (decimal)e.ResJuegoEmpate);
+
+                            return new Promedio
+                            {
+                                EquipoId = EquipoId,
+                                EquipoNombre = EquipoNombre,
+                                PromedioCarreras = PromedioCarreras,
+                                PromedioHits = PromedioHits,
+                                PromedioErrores = PromedioErrores,
+                                PromedioJuegoGanado = PromedioJuegoGanado,
+                                PromedioJuegoPerdido = PromedioJuegoPerdido,
+                                PromedioJuegoEmpate = PromedioJuegoEmpate
+                            };
+                        })
+                        .ToList();
+    
+                        ViewBag.PromediosPorEquipo = promedios;
+                }
+
+                return View(Info);
             }
         }
     }

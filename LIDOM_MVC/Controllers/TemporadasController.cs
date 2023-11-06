@@ -44,9 +44,7 @@ namespace LIDOM_MVC.Controllers
         [Route("api/details/id")]
         public async Task<ActionResult> Details(int id)
         {
-
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
-
 
             Temporada TempInfo = new Temporada();
             using (var client = new HttpClient())
@@ -140,10 +138,7 @@ namespace LIDOM_MVC.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    // Serializa el objeto temporada en formato JSON
                     var content = new StringContent(JsonConvert.SerializeObject(temporada), Encoding.UTF8, "application/json");
-
-                    // Envía una solicitud PUT a la API con los datos actualizados
                     HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/temporadas/" + id.ToString(), content);
 
                     if (response.IsSuccessStatusCode)
@@ -178,11 +173,9 @@ namespace LIDOM_MVC.Controllers
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
 
-
             Temporada TempInfo = new Temporada();
             using (var client = new HttpClient())
             {
-
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/temporadas/" + id.ToString());

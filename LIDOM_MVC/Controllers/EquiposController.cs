@@ -82,11 +82,11 @@ namespace LIDOM_MVC.Controllers
             string jsonJugadoresResponse = httpClient.GetStringAsync($"{baseApiUrl}/jugadores").Result;
             jugadores = JsonConvert.DeserializeObject<List<Jugadore>>(jsonJugadoresResponse) ?? new List<Jugadore>();
 
-            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
+            // Filtrar equipos y estadios según el ID:
             equipo = equipos.FirstOrDefault(e => e.EqId == id)!;
             estadio = estadios.FirstOrDefault(s => s.EstId == equipo.EqEstadio)!;
 
-            // Luego, asigna los valores al ViewModel como lo hacías antes.
+            // Asignar los valores al ViewModel
             eqEstadioNombreViewModel.EqId = equipo.EqId;
             eqEstadioNombreViewModel.EqCiudad = equipo.EqCiudad;
             eqEstadioNombreViewModel.EqEstadio = estadio.EstNombre;
@@ -148,7 +148,6 @@ namespace LIDOM_MVC.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-
                 ModelState.AddModelError(string.Empty, "Ocurrió un error al crear el equipo.");
             }
             return View(equipo);
@@ -196,11 +195,7 @@ namespace LIDOM_MVC.Controllers
                 {
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    // Serializa el objeto temporada en formato JSON
                     var content = new StringContent(JsonConvert.SerializeObject(equipo), Encoding.UTF8, "application/json");
-
-                    // Envía una solicitud PUT a la API con los datos actualizados
                     HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/equipos/" + id.ToString(), content);
 
                     if (response.IsSuccessStatusCode)

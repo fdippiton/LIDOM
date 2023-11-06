@@ -72,18 +72,18 @@
                         @Html.DisplayFor(modelItem => item.EqEstatus)
                         </td> 
                     }
-                    <td class="d-flex flex-nowrap">
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <span> @Html.ActionLink("Editar", "Edit", new { id=item.EqId }, new { @class = "btn btn-outline-secondary me-1" })</span>
-                        }
+                <td class="d-flex flex-nowrap">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span> @Html.ActionLink("Editar", "Edit", new { id=item.EqId }, new { @class = "btn btn-outline-secondary me-1" })</span>
+                    }
 
-                        <span>   @Html.ActionLink("Perfil", "Details", new { id=item.EqId }, new { @class = "btn btn-outline-primary me-1" })</span>
+                        <span>@Html.ActionLink("Perfil", "Details", new { id=item.EqId }, new { @class = "btn btn-outline-primary me-1" })</span>
 
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <span>   @Html.ActionLink("Eliminar", "Delete", new { id=item.EqId }, new { @class = "btn btn-outline-danger me-1" })</span>
-                        }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span>   @Html.ActionLink("Eliminar", "Delete", new { id=item.EqId }, new { @class = "btn btn-outline-danger me-1" })</span>
+                    }
                 </td>
             </tr>
         }

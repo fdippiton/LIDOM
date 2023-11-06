@@ -1,0 +1,40 @@
+﻿
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Promedios de equipos</h1>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id Equipo</th>
+            <th>Equipo</th>
+            <th>Promedio Carreras</th>
+            <th>Promedio Hits</th>
+            <th>Promedio Errores</th>
+            <th>Promedio Juego Ganado</th>
+            <th>Promedio Juego Perdido</th>
+            <th>Promedio Juego Empate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var promedio in ViewBag.PromediosPorEquipo)
+        {
+            <tr>
+                <td>@promedio.EquipoId</td>
+                <td>@promedio.EquipoNombre</td>
+                <td>@promedio.PromedioCarreras</td>
+                <td>@promedio.PromedioHits</td>
+                <td>@promedio.PromedioErrores</td>
+                <td>@promedio.PromedioJuegoGanado</td>
+                <td>@promedio.PromedioJuegoPerdido</td>
+                <td>@promedio.PromedioJuegoEmpate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

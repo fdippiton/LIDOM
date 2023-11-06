@@ -1,0 +1,78 @@
+﻿@model IEnumerable<LIDOM_MVC.ViewModels.EstadisticasViewModel> 
+
+@{
+    ViewData["Title"] = "EstadisticaXEquipo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-3">Estadisticas por equipo</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipoNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalJuegos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalJuegosGanados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalJuegosPerdidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalJuegosEmpatados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCarreras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalHits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalErrores)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquipoNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalJuegos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalJuegosGanados)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalJuegosPerdidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalJuegosEmpatados)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalCarreras)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalHits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalErrores)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

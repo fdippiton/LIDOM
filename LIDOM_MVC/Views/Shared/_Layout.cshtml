@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LIDOM_MVC.styles.css" asp-append-version="true" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;900&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,9 +15,9 @@
 </head>
 <body>
     <div class="container">
- 
         <nav class="navbar navbar-expand-lg bg-body-tertiary mt-4 mb-5">
             <div class="row container-fluid d-flex justify-content-around p-0">
+
                 <div class="col-10">
                     <a class="navbar-brand" style="font-family: 'Montserrat', sans-serif; font-weight: 900; color:#003399;" asp-controller="Home" asp-action="Index">
                         <img class="me-2" style="width:40px; height:40px;" src="https://uxwing.com/wp-content/themes/uxwing/download/flags-landmarks/dominican-republic-flag-round-circle-icon.png" />Liga Dominicana
@@ -60,7 +57,7 @@
                                 <li class="nav-item dropdown-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Jugadores" asp-action="Index">Jugadores</a>
                                 </li>
-                                           <li class="nav-item dropdown-item">
+                                <li class="nav-item dropdown-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Partidos" asp-action="Index">Partidos</a>
                                 </li>
                                 <li class="nav-item dropdown-item">
@@ -69,11 +66,16 @@
                                 <li class="nav-item dropdown-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="ResultadoEquipos" asp-action="GetStandingPorFecha">Standing</a>
                                 </li>
+
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ResultadoEquipos" asp-action="EstadisticaXEquipo">Estadisticas</a>
+                                </li>
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ResultadoEquipos" asp-action="PromedioEquipos">Promedios</a>
+                                </li>
                             </ul>
                         </div>
-                                @* <li class="nav-item"> *@
-                                    <a class="btn btn-danger" asp-controller="Usuarios" asp-action="LogOut">Salir</a>
-                                @* </li> *@
+                        <a class="btn btn-danger" asp-controller="Usuarios" asp-action="LogOut">Salir</a>
                     }
                     else
                     {
@@ -83,6 +85,9 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="CalendarioJuegos" asp-action="Index">Calendario de Juegos</a>
+                                </li>
+                                <li class="nav-item dropdown-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Estadios" asp-action="Index">Estadios</a>
                                 </li>
                                 <li class="nav-item dropdown-item">
@@ -91,74 +96,36 @@
                                 <li class="nav-item dropdown-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Temporadas" asp-action="Index">Temporadas</a>
                                 </li>
-                                                                <li class="nav-item dropdown-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="CalendarioJuegos" asp-action="Index">Calendario de Juegos</a>
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="FechaPartidos" asp-action="Index">Fecha Partidos</a>
+                                </li>
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Jugadores" asp-action="Index">Jugadores</a>
                                 </li>
                                 <li class="nav-item dropdown-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Partidos" asp-action="Index">Partidos</a>
                                 </li>
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ResultadoEquipos" asp-action="Index">Resultados Partidos</a>
+                                </li>
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ResultadoEquipos" asp-action="GetStandingPorFecha">Standing</a>
+                                </li>
+
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ResultadoEquipos" asp-action="EstadisticaXEquipo">Estadisticas</a>
+                                </li>
+                                <li class="nav-item dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ResultadoEquipos" asp-action="PromedioEquipos">Promedios</a>
+                                </li>
                             </ul>
                         </div>
-                            <a class="btn btn-secondary" asp-controller="Usuarios" asp-action="Index">Admin</a>
-                        
+                        <a class="btn btn-secondary" asp-controller="Usuarios" asp-action="Index">Admin</a>
                     }
                 </div>
             </div>
         </nav>
 
-  @*       <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="row d-flex justify-content-around">
-                <div class="col-3">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LIDOM_MVC</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="col-6 navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Estadios" asp-action="Index">Estadios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Equipos" asp-action="Index">Equipos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Temporadas" asp-action="Index">Temporadas</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="btn btn-danger" asp-controller="Usuarios" asp-action="LogOut">Salir</a>
-                            </li>
-                        </ul>
-                    }else
-                    {
-                        <div class="navbar-nav d-flex justify-content-between">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Equipos" asp-action="Index">Equipos</a>
-                            </li>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Temporadas" asp-action="Index">Temporadas</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="btn btn-success" asp-controller="Usuarios" asp-action="Index">Ingresar</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="FechaPartidos" asp-action="Index">FechaPartidos</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Posiciones" asp-action="Index">Posiciones</a>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </nav> *@
-  
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -167,7 +134,6 @@
     <footer class="border-top footer text-muted">
         <div class="container text-center">
             &copy; 2023 - LIDOM 
-            @* - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

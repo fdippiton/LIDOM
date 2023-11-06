@@ -31,6 +31,7 @@
                 </div>
                
             </div>
+
             <div class="row p-0" style="background-color: #cfd0e2;">
                 <div class="col-5 py-2 text-center">
                     <div>
@@ -65,7 +66,6 @@
             </div>
 
         </div>
-
     }
 </div>
 
@@ -99,8 +99,8 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model) {
-            <tr>
+            @foreach (var item in Model) {
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.CalJuegoId)
                     </td>
@@ -126,9 +126,9 @@
                         @Html.ActionLink("Editar", "Edit", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-secondary me-1" })
                         @Html.ActionLink("Detalles", "Details", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-primary me-1" })
                         @Html.ActionLink("Eliminar", "Delete", new { id=item.CalJuegoId }, new { @class = "btn btn-outline-danger me-1" })
-                </td>
-            </tr>
-    }
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
     

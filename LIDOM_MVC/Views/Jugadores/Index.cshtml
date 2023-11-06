@@ -7,9 +7,12 @@
 
 <h1>Jugadores</h1>
 
-<p>
-    <a asp-action="Create" class="btn bg-primary text-white">Añadir nuevo jugador</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn bg-primary text-white">Añadir nuevo jugador</a>
+    </p> 
+}
 <table class="table">
     <thead class="table-dark">
         <tr>
@@ -38,35 +41,38 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JugId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JugNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JugApellidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JugPosicion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JugEquipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JugEdad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JugNumCamiseta)
-            </td>
-            <td>
-                    @Html.ActionLink("Editar", "Edit", new { id=item.JugId }, new { @class = "btn btn-outline-secondary me-1" }) 
-                    @Html.ActionLink("Detalles", "Details", new { id=item.JugId }, new { @class = "btn btn-outline-primary me-1" }) 
-                    @Html.ActionLink("Eliminar", "Delete", new { id=item.JugId }, new { @class = "btn btn-outline-danger me-1" })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JugId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JugNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JugApellidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JugPosicion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JugEquipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JugEdad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JugNumCamiseta)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                            @Html.ActionLink("Editar", "Edit", new { id=item.JugId }, new { @class = "btn btn-outline-secondary me-1" }) 
+                            @Html.ActionLink("Detalles", "Details", new { id=item.JugId }, new { @class = "btn btn-outline-primary me-1" }) 
+                            @Html.ActionLink("Eliminar", "Delete", new { id=item.JugId }, new { @class = "btn btn-outline-danger me-1" })
+                    </td>
+                }
+            </tr>
+        }
     </tbody>
 </table>

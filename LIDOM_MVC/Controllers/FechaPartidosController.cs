@@ -25,6 +25,7 @@ namespace LIDOM_MVC.Controllers
         public async Task<ActionResult> Index()
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
+            
             List<FechaPartido> fechaPartidos = new List<FechaPartido>();
             List<Temporada> temporadas = new List<Temporada>();
             List<FechaPartidoViewModel> fecViewModel = new List<FechaPartidoViewModel>();
@@ -34,8 +35,8 @@ namespace LIDOM_MVC.Controllers
                 client.BaseAddress = new Uri(baseApiUrl);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                
                 HttpResponseMessage ResFecha = await client.GetAsync($"{baseApiUrl}/fechapartidos");
-
                 HttpResponseMessage ResTemp = await client.GetAsync($"{baseApiUrl}/temporadas");
 
 
@@ -60,7 +61,6 @@ namespace LIDOM_MVC.Controllers
                     };
                     fecViewModel.Add(customFechaPartido);
                 };
-
                 return View(fecViewModel);
             }
         }
@@ -119,6 +119,7 @@ namespace LIDOM_MVC.Controllers
             return View(fechaPartido);
         }
 
+
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -135,11 +136,9 @@ namespace LIDOM_MVC.Controllers
             string jsonTemporadasResponse = httpClient.GetStringAsync($"{baseApiUrl}/temporadas").Result;
             temporadas = JsonConvert.DeserializeObject<List<Temporada>>(jsonTemporadasResponse) ?? new List<Temporada>();
 
-            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
             fechapartido = fechapartidos.FirstOrDefault(e => e.FecId == id)!;
             temporada = temporadas.FirstOrDefault(s => s.TemId == fechapartido.FecTemporada)!;
 
-            // Luego, asigna los valores al ViewModel como lo hacías antes.
             fechapartidosViewModel.FecId = fechapartido.FecId;
             fechapartidosViewModel.FecFechaPartido = fechapartido.FecFechaPartido;
             fechapartidosViewModel.FecHora = fechapartido.FecHora;
@@ -166,11 +165,9 @@ namespace LIDOM_MVC.Controllers
             string jsonTemporadasResponse = httpClient.GetStringAsync($"{baseApiUrl}/temporadas").Result;
             temporadas = JsonConvert.DeserializeObject<List<Temporada>>(jsonTemporadasResponse) ?? new List<Temporada>();
 
-            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
             fechapartido = fechapartidos.FirstOrDefault(e => e.FecId == id)!;
             temporada = temporadas.FirstOrDefault(s => s.TemId == fechapartido.FecTemporada)!;
 
-            // Luego, asigna los valores al ViewModel como lo hacías antes.
             fechapartidosViewModel.FecId = fechapartido.FecId;
             fechapartidosViewModel.FecFechaPartido = fechapartido.FecFechaPartido;
             fechapartidosViewModel.FecHora = fechapartido.FecHora;
@@ -239,10 +236,7 @@ namespace LIDOM_MVC.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    // Serializa el objeto temporada en formato JSON
                     var content = new StringContent(JsonConvert.SerializeObject(fechaPartido), Encoding.UTF8, "application/json");
-
-                    // Envía una solicitud PUT a la API con los datos actualizados
                     HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/fechapartidos/" + id.ToString(), content);
 
                     if (response.IsSuccessStatusCode)

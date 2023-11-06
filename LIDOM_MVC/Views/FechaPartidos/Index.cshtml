@@ -7,11 +7,14 @@
 
 <h1>Fecha de Partidos</h1>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Crear nueva fecha</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Crear nueva fecha</a>
+    </p>
+}
 <table class="table">
-    <thead>
+    <thead class="table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FecFechaPartido)

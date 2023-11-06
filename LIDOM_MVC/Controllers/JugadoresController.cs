@@ -57,11 +57,9 @@ namespace LIDOM_MVC.Controllers
                 };
                 jugadoresViewModel.Add(customJugador);
             };
-
-            //var grupoJugadores = jugadoresViewModel.GroupBy(j => j.JugNumCamiseta);
-
             return View(jugadoresViewModel);
         }
+
 
         // GET: JugadoresController/Details/5
         public ActionResult Details(int id)
@@ -84,12 +82,10 @@ namespace LIDOM_MVC.Controllers
             string jsonJugadoresResponse = httpClient.GetStringAsync($"{baseApiUrl}/jugadores").Result;
             jugadores = JsonConvert.DeserializeObject<List<Jugadore>>(jsonJugadoresResponse) ?? new List<Jugadore>();
 
-            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
             jugador = jugadores.FirstOrDefault(e => e.JugId == id)!;
             equipo = equipos.FirstOrDefault(s => s.EqId == jugador.JugEquipo)!;
             posicion = posiciones.FirstOrDefault(s => s.PosId == jugador.JugPosicion)!;
 
-            // Luego, asigna los valores al ViewModel como lo hacías antes.
             jugadoresViewModel.JugId = jugador.JugId;
             jugadoresViewModel.JugPosicion = posicion.PosNombre;
             jugadoresViewModel.JugEquipo = equipo.EqNombre;
@@ -100,6 +96,7 @@ namespace LIDOM_MVC.Controllers
 
             return View(jugadoresViewModel);
         }
+
 
         // GET: JugadoresController/Create
         public async Task <ActionResult> Create()
@@ -129,6 +126,7 @@ namespace LIDOM_MVC.Controllers
                 return View();
             }
         }
+
 
         // POST: JugadoresController/Create
         [HttpPost]
@@ -160,6 +158,7 @@ namespace LIDOM_MVC.Controllers
             }
             return View(jugadore);
         }
+
 
         // GET: JugadoresController/Edit/5
         public async Task <ActionResult> Edit(int id)
@@ -196,6 +195,7 @@ namespace LIDOM_MVC.Controllers
 
         }
 
+
         // POST: JugadoresController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -210,10 +210,7 @@ namespace LIDOM_MVC.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    // Serializa el objeto temporada en formato JSON
                     var content = new StringContent(JsonConvert.SerializeObject(jugador), Encoding.UTF8, "application/json");
-
-                    // Envía una solicitud PUT a la API con los datos actualizados
                     HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/jugadores/" + id.ToString(), content);
 
                     if (response.IsSuccessStatusCode)
@@ -241,6 +238,7 @@ namespace LIDOM_MVC.Controllers
             return View(jugador);
         }
 
+
         // GET: JugadoresController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -263,12 +261,10 @@ namespace LIDOM_MVC.Controllers
             string jsonEquiposResponse = httpClient.GetStringAsync($"{baseApiUrl}/equipos").Result;
             equipos = JsonConvert.DeserializeObject<List<Equipo>>(jsonEquiposResponse) ?? new List<Equipo>();
 
-            // Por ejemplo, podrías filtrar equipos y estadios según el ID:
             jugador = jugadores.FirstOrDefault(e => e.JugId == id)!;
             equipo = equipos.FirstOrDefault(s => s.EqId == jugador.JugEquipo)!;
             posicion = posiciones.FirstOrDefault(s => s.PosId == jugador.JugPosicion)!;
 
-            // Luego, asigna los valores al ViewModel como lo hacías antes.
             jugadoresViewModel.JugId = jugador.JugId;
             jugadoresViewModel.JugNumCamiseta = jugador.JugNumCamiseta;
             jugadoresViewModel.JugEquipo = equipo.EqNombre;
@@ -279,6 +275,7 @@ namespace LIDOM_MVC.Controllers
 
             return View(jugadoresViewModel);
         }
+
 
         // POST: JugadoresController/Delete/5
         [HttpPost]

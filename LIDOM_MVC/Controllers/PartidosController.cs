@@ -39,26 +39,13 @@ namespace LIDOM_MVC.Controllers
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(baseApiUrl);
-                    // Establece la URL de tu Web API
-
-
-                    // Establece el tipo de contenido que esperas en la respuesta
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    // Realiza la solicitud HTTP para llamar al endpoint de la Web API
                     HttpResponseMessage response = await client.GetAsync($"{baseApiUrl}/partidos");
-
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Procesa la respuesta JSON
                         var data = await response.Content.ReadAsStringAsync();
-
-                        // Deserializa los datos JSON a objetos C# utilizando un marco como Newtonsoft.Json
                         partidoViewModel = JsonConvert.DeserializeObject<List<PartidoView>>(data) ?? new List<PartidoView>();
-                        //calendarioViewModel = JsonConvert.DeserializeObject<CalendarioViewModel[]>(data);
-
-
                     }
                     else
                     {
@@ -96,22 +83,13 @@ namespace LIDOM_MVC.Controllers
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(baseApiUrl);
-                    // Establece la URL de tu Web API
-
-
-                    // Establece el tipo de contenido que esperas en la respuesta
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    // Realiza la solicitud HTTP para llamar al endpoint de la Web API
                     HttpResponseMessage response = await client.GetAsync($"{baseApiUrl}/partidos");
 
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Procesa la respuesta JSON
                         var data = await response.Content.ReadAsStringAsync();
-
-                        // Deserializa los datos JSON a objetos C# utilizando un marco como Newtonsoft.Json
                         partidoViewModels = JsonConvert.DeserializeObject<List<PartidoView>>(data) ?? new List<PartidoView>();
                     }
                     else
@@ -119,7 +97,6 @@ namespace LIDOM_MVC.Controllers
                         Console.WriteLine("Error al llamar a la Web API: " + response.ReasonPhrase);
                         ModelState.AddModelError(String.Empty, "Error al obtener datos. Código de estado: " + response.StatusCode);
                     }
-
                     partidoViewModel = partidoViewModels.FirstOrDefault(e => e.ParId == id)!;
                 }
             }
@@ -159,7 +136,6 @@ namespace LIDOM_MVC.Controllers
                         var data = await response.Content.ReadAsStringAsync();
                         partidoViewModels = JsonConvert.DeserializeObject<List<PartidoView>>(data) ?? new List<PartidoView>();
 
-                        //var fechasPartido = partidoViewModel.Select(p => p.FecFechaPartido).ToList();
                         var fechaPartidoList = partidoViewModels.Select(p => new SelectListItem
                         {
                             Text = p.FecFechaPartido.ToString(), // Texto visible en el DropDownList
@@ -304,7 +280,6 @@ namespace LIDOM_MVC.Controllers
 
                         partidoViewModel = partidoViewModels.FirstOrDefault(e => e.ParId == id)!;
 
-                        //var fechasPartido = partidoViewModel.Select(p => p.FecFechaPartido).ToList();
                         var fechaPartidoList = partidoViewModels.Select(p => new SelectListItem
                         {
                             Text = p.FecFechaPartido.ToString(), // Texto visible en el DropDownList
@@ -329,12 +304,10 @@ namespace LIDOM_MVC.Controllers
 
                         ViewBag.EquipoPerdedorList = equipoPerdedorList!;
 
-
                         partido.ParId = partidoViewModel.ParId;
                         partido.ParJuego = partidoViewModel.ParJuego;
                         partido.ParEquipoGanador = partidoViewModel.ParEquipoGanadorId;
                         partido.ParEquipoPerdedor = partidoViewModel.ParEquipoPerdedorId;
-
                     }
                     else
                     {
@@ -372,10 +345,8 @@ namespace LIDOM_MVC.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    // Serializa el objeto temporada en formato JSON
                     var content = new StringContent(JsonConvert.SerializeObject(partido), Encoding.UTF8, "application/json");
 
-                    // Envía una solicitud PUT a la API con los datos actualizados
                     HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/partidos/" + id.ToString(), content);
 
                     if (response.IsSuccessStatusCode)
@@ -415,13 +386,8 @@ namespace LIDOM_MVC.Controllers
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(baseApiUrl);
-                    // Establece la URL de tu Web API
-
-
-                    // Establece el tipo de contenido que esperas en la respuesta
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    // Realiza la solicitud HTTP para llamar al endpoint de la Web API
                     HttpResponseMessage response = await client.GetAsync($"{baseApiUrl}/partidos");
 
 
@@ -429,8 +395,6 @@ namespace LIDOM_MVC.Controllers
                     {
                         // Procesa la respuesta JSON
                         var data = await response.Content.ReadAsStringAsync();
-
-                        // Deserializa los datos JSON a objetos C# utilizando un marco como Newtonsoft.Json
                         partidoViewModels = JsonConvert.DeserializeObject<List<PartidoView>>(data) ?? new List<PartidoView>();
                     }
                     else

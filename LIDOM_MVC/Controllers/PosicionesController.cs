@@ -149,7 +149,7 @@ namespace LIDOM_MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit([FromForm] Posicione posicione)
         {
-            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value;
+            string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
             if (ModelState.IsValid)
             {
                 using (var client = new HttpClient())

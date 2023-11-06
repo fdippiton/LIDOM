@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@* <h1>Detalles</h1> *@
 
 <div>
     <div class="row d-flex align-items-center justify-content-center">
@@ -19,27 +18,18 @@
     </div>
     <hr />
     <dl class="row">
-@*         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EqNombre)
-        </dt> *@
         <dd class = "col-sm-10" style="font-size: 25px; font-weight:bold;">
             @Html.DisplayFor(model => model.Equipo.EqNombre)
         </dd>
-   @*      <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EqDescripcion)
-        </dt> *@
+
         <dd class="col-sm-10" style="font-size: 22px; font-weight:bold;">
             @Html.DisplayFor(model => model.Equipo.EqDescripcion)
         </dd>
-@*         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EqCiudad)
-        </dt> *@
+
         <dd class="col-sm-10" style="font-size: 22px; font-weight:bold;">
             @Html.DisplayFor(model => model.Equipo.EqCiudad)
         </dd>
-@*         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EqEstadio)
-        </dt> *@
+
         <dd class="col-sm-10" style="font-size: 22px; font-weight:bold;">
             @Html.DisplayFor(model => model.Equipo.EqEstadio)
         </dd>
@@ -54,7 +44,7 @@
 </div>
 
 <div class="row mt-5">
-            <h2 class="p-0 mb-3 text-black">Jugadores</h2>
+    <h2 class="p-0 mb-3 text-black">Jugadores</h2>
     <div class="col-10">
         <div class="row">
             <table class="table">

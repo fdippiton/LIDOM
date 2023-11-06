@@ -35,8 +35,8 @@ namespace LIDOM_MVC.Controllers
         public async Task <ActionResult> Details(int id)
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
-
             Estadio EstaInfo = new Estadio();
+
             using (var client = new HttpClient())
             {
 
@@ -49,7 +49,6 @@ namespace LIDOM_MVC.Controllers
                     var EstResponse = Res.Content.ReadAsStringAsync().Result;
                     EstaInfo = JsonConvert.DeserializeObject<Estadio>(EstResponse)!;
                 }
-
                 return View(EstaInfo);
             }
         }
@@ -91,12 +90,10 @@ namespace LIDOM_MVC.Controllers
         public async Task <ActionResult> Edit(int id)
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
-
-
             Estadio EstaInfo = new Estadio();
+
             using (var client = new HttpClient())
             {
-
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/estadios/" + id.ToString());
@@ -106,7 +103,6 @@ namespace LIDOM_MVC.Controllers
                     var EstaResponse = Res.Content.ReadAsStringAsync().Result;
                     EstaInfo = JsonConvert.DeserializeObject<Estadio>(EstaResponse)!;
                 }
-
                 return View(EstaInfo);
             }
         }
@@ -124,11 +120,7 @@ namespace LIDOM_MVC.Controllers
                 {
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    // Serializa el objeto temporada en formato JSON
                     var content = new StringContent(JsonConvert.SerializeObject(estadio), Encoding.UTF8, "application/json");
-
-                    // Envía una solicitud PUT a la API con los datos actualizados
                     HttpResponseMessage response = await client.PutAsync($"{baseApiUrl}/estadios/" + id.ToString(), content);
 
                     if (response.IsSuccessStatusCode)
@@ -157,17 +149,16 @@ namespace LIDOM_MVC.Controllers
             return View(estadio);
         }
 
+
         // GET: EstadiosController/Delete/5
         [HttpGet]
         public async Task <ActionResult> Delete(int id)
         {
             string baseApiUrl = _configuration.GetSection("LigaDominicanaApi").Value!;
-
-
             Estadio EstInfo = new Estadio();
+
             using (var client = new HttpClient())
             {
-
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync($"{baseApiUrl}/estadios/" + id.ToString());
@@ -177,10 +168,10 @@ namespace LIDOM_MVC.Controllers
                     var EstaResponse = Res.Content.ReadAsStringAsync().Result;
                     EstInfo = JsonConvert.DeserializeObject<Estadio>(EstaResponse)!;
                 }
-
                 return View(EstInfo);
             }
         }
+
 
         // POST: EstadiosController/Delete/5
         [HttpPost]
